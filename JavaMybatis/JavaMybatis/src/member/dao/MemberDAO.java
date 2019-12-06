@@ -23,6 +23,9 @@ public class MemberDAO {
 			session = factory.openSession();
 			MemberMapper mapper = session.getMapper(MemberMapper.class);
 			mapper.insertMember(member);
+			System.out.println("------select문-------");
+			System.out.println(mapper.selectMember());
+			System.out.println("--------------------");
 			session.commit();
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -25,7 +25,7 @@ insert into
 </insert>
 
 <!-- 회원 목록 읽기 -->
-<select id="selectMember" resultType="member">
+<select id="selectMember" resultType="member"> <!-- 반환형이 멤버면 vo든 arrayList든 상관없이 받는다 -->
 select 
 	member_no
 	,member_name
