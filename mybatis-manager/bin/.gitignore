@@ -1,3 +1,7 @@
+/Dao/
 /Main/
 /UI/
-/Dao/
+/VO/
+/boardMapper.xml
+/db.properties
+/mybatis-config.xml
