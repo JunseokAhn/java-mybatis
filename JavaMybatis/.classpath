@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="src" path="JavaMybatis/src"/>
-	<classpathentry kind="lib" path="JavaMybatis/lib/mybatis-3.2.8.jar"/>
-	<classpathentry kind="lib" path="JavaMybatis/lib/ojdbc6.jar"/>
+	<classpathentry exported="true" kind="lib" path="JavaMybatis/lib/mybatis-3.2.8.jar"/>
+	<classpathentry exported="true" kind="lib" path="JavaMybatis/lib/ojdbc6.jar"/>
 	<classpathentry kind="output" path="JavaMybatis/bin"/>
 </classpath>
