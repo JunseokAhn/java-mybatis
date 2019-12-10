@@ -19,9 +19,21 @@
 
 	<select id="listBoard" resultType="Board">
 		select *
-		from
-		board
-		order by
-		boardnum desc
+		from	board
+		order by	boardnum desc
 	</select>
+	
+	<select id="readBoard" parameterType="int" resultType="Board">
+	select *
+	from	board
+	where boardnum = #{num} <!-- 중괄호는 파라미터가 하나면 이름 상관없음 -->
+	</select>
+	
+	<update id = "addHits" parameterType="int">
+	update board
+	set hits = hits+1
+	where boardnum = #{num}
+	</update>
+	
+	
 </mapper>

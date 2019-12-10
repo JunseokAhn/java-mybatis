@@ -151,7 +151,7 @@ public class UI {
 		
 		while (true) {
 			//본문 글 읽기
-			Board board = null;
+			Board board = dao.readBoard(n);
 			if (board == null) {
 				System.out.println("해당 번호의 글이 없습니다.");
 				return;
@@ -186,11 +186,12 @@ public class UI {
 	 * 1개의 글에 달린 리플 읽기
 	 */
 	void listReply(int num) {
-		ArrayList<Reply> relist = null;
+		ArrayList<Reply> relist = dao.listReply(num);
 		
 		System.out.println("===== 리플 =====");
 		for (Reply r : relist) {
-
+			System.out.println(r.getBoardnum()+"\t"
+					+r.getName()+"\t"+r.getRetext());
 		}
 	}
 	

@@ -2,13 +2,13 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="Dao.BoardMapper">
+<mapper namespace="dao.BoardMapper">
 
 	<insert id="insertBoard" parameterType="Board">
-		insert into Board (
-		boardnum, 	name, title,	content,	hits,indate
-		)values(
-		boardseq.nextval,
+		insert into Board
+		(boardnum, name, title, content, hits, indate)
+		values
+		(boardseq.nextval,
 		#{name},
 		#{title},
 		#{content},
@@ -16,12 +16,12 @@
 		default
 		)
 	</insert>
-
+	
 	<select id="listBoard" resultType="Board">
-		select *
-		from
+	select *
+	from 
 		board
-		order by
+	order by
 		boardnum desc
 	</select>
 </mapper>
