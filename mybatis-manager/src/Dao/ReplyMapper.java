@@ -8,6 +8,6 @@ public interface ReplyMapper {
 
 	ArrayList<Reply> listReply(int num);
 
-	
+	int insertReply(Reply reply);
 	
 }

@@ -10,5 +10,20 @@ from reply
 where boardnum = #{num}
 order by replynum desc
 </select>
+
+<insert id = "insertReply" parameterType="Reply">
+insert into reply
+(replynum, boardnum, name, retext) 
+values
+(replyseq.nextval,
+#{boardnum},
+#{name},
+#{retext}
+)
+</insert>
+<delete id = "deleteReply" parameterType="int">
+delete from board
+where boardnum = #{boardnum}
+</delete>
 </mapper>
 

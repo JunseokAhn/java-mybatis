@@ -1,6 +1,7 @@
 package Dao;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -57,6 +58,41 @@ public class BoardDao {
 		ReplyMapper mapper = session.getMapper(ReplyMapper.class);
 		ArrayList<Reply> list = mapper.listReply(num);
 		session.close();
+		return list;
+	}
+
+	public boolean insertReply(Reply reply) {
+		// TODO Auto-generated method stub
+		SqlSession session = factory.openSession();
+		ReplyMapper mapper = session.getMapper(ReplyMapper.class);
+		int res = mapper.insertReply(reply);
+		session.commit();
+		session.close();
+		if(res==1)
+			return true;
+		
+		return false;
+	}
+
+	public boolean delete(int n) {
+		// TODO Auto-generated method stub
+		SqlSession session = factory.openSession();
+		BoardMapper mapper = session.getMapper(BoardMapper.class);
+		int res = mapper.delete(n);
+		if(res>0)
+			return true;
+		return false;
+	}
+
+	public ArrayList<Board> search(int col, String word) {
+		// TODO Auto-generated method stub
+		SqlSession session = factory.openSession();
+		BoardMapper mapper = session.getMapper(BoardMapper.class);
+		HashMap<String,Object> map = new HashMap<>();
+		map.put("col", col);
+		map.put("word", word);
+		ArrayList<Board> list = mapper.search(map);
+		
 		return list;
 	}
 

@@ -210,8 +210,8 @@ public class UI {
 		System.out.print("내용: ");
 		retext = sc.nextLine();
 		
-		reply = null;
-		res = false;
+		reply = new Reply(boardnum, name, retext);
+		res = dao.insertReply(reply);
 		
 		if (res) {
 			System.out.println("리플이 저장되었습니다.");
@@ -236,7 +236,7 @@ public class UI {
 			sc.nextLine();		//잘못 입력된 경우 버퍼에 남아있는 문자들 삭제
 		}
 		
-		boolean res = false;
+		boolean res = dao.delete(n);
 		if (res) {
 			System.out.println("삭제되었습니다.");
 		}
@@ -266,7 +266,7 @@ public class UI {
 			return;
 		}
 		
-		ArrayList<Board> list = null;
+		ArrayList<Board> list = dao.search(col,word);
 		
 		if (list == null || list.size() == 0) {
 			System.out.println("검색 결과가 없습니다.");
@@ -274,7 +274,7 @@ public class UI {
 		}
 		else {
 			for (Board b : list) {
-
+				System.out.println(b);
 			}
 		}
 	}

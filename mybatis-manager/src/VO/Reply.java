@@ -10,11 +10,14 @@ public class Reply {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Reply(String name, String retext) {
+	
+	public Reply(int boardnum, String name, String retext) {
 		super();
+		this.boardnum = boardnum;
 		this.name = name;
 		this.retext = retext;
 	}
+
 
 	@Override
 	public String toString() {

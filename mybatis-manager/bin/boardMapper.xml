@@ -35,5 +35,24 @@
 	where boardnum = #{num}
 	</update>
 	
+	<delete id = "delete" parameterType="int">
+	delete from board
+	where boardnum=#{num}
+	</delete>
+	
+<select id="search" parameterType="map" resultType="Board">
+	select *
+	from board
+	where 
+		<if test="col == 1">
+			name like '%' || #{word} || '%'
+		</if>
+		<if test="col == 2">
+			title like '%' || #{word} || '%'
+		</if>
+		<if test="col == 3">
+			content like '%' || #{word} || '%'
+		</if>
+	</select>	
 	
 </mapper>
