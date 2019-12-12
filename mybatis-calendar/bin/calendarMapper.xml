@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 일정 처리 SQL -->
+<mapper namespace="calendar.dao.MyCalendarMapper">
+
+<!-- 일정 저장 -->
+<insert id="insert" parameterType="MyCalendar">
+	insert into calendar
+	(calendar_no
+	,calendar_name
+	,calendar_title
+	,calendar_content
+)
+	values
+	(calendar_seq.nextval
+	,#{calendar_name}
+	,#{calendar_title}
+	,#{calendar_content}
+	,default	
+	)
+</insert>
+<!-- 일정 목록 -->
+<select id="list" resultType="MyCalendar">
+	select *
+	from calendar
+</select>
+
+<!-- 일정 1개 읽기 -->
+<select id="read" parameterType="int" resultType="MyCalendar" >
+	select *
+	from calendar
+	where calendar_no = #{n}
+</select>
+
+<!-- 일정 삭제 -->
+<delete id="delete" parameterType="int">
+	delete from calendar
+	where calendar_no=#{n}
+</delete>
+<!-- 일정 검색 -->
+<select id="search" parameterType="map" resultType="MyCalendar">
+	select *
+	from calendar
+	where
+		<if test="col==1">
+			calendar_name like '%' || #{word} || '%'
+		</if>
+		<if test="col==2">
+			calendar_title like '%' || #{word} || '%'
+		</if>
+		<if test="col==3">
+			calendar_content like '%' || #{word} || '%'
+		</if>
+</select>
+<!-- 일정 수정 -->
+<update id="update" parameterType="map">
+	update calendar
+	set 
+		calendar_title= #{calendar_title},
+		calendar_content = #{calendar_content}
+	where
+		calendar_no = #{calendar_no}
+</update>
+
+</mapper>
