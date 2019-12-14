@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<<<<<<< HEAD
+<mapper namespace="dao.Mapper">
+<select id="consumer_list" resultType="Consumer">
+	select *
+	from consumer
+</select>
+<select id="producer_list" resultType="Producer">
+	select *
+	from producer
+</select>
+
+<insert id="insertCon" parameterType="Consumer">
+	insert into consumer
+	(CONSUMER_ID,PW, NAME,ADDRESS,PHONE)
+	values
+	(#{consumer_id},
+	#{pw},
+	#{name},
+	#{address},
+	#{phone}
+	)
+	
+</insert>
+
+<insert id="insertPro" parameterType="Producer">
+	insert into producer
+	(PRODUCER_ID,PW, NAME,ADDRESS,PHONE)
+	values
+	(#{producer_id},
+	#{pw},
+	#{name},
+	#{address},
+	#{phone}
+	)
+	
+</insert>
+
+<select id="checkID" parameterType="String" resultType="String">
+	select *
+	from Consumer
+	where Consumer_id=#{value}
+	UNION
+	select *
+    from Producer
+    where producer_id=#{value}
+</select>
+
+<select id="checkID1" parameterType="String" resultType="String">
+	select pw
+	from Consumer
+	where Consumer_id=#{value}
+</select>
+<select id="checkID2" parameterType="String" resultType="String">
+	select pw
+	from Producer
+	where Producer_id=#{value}
+</select>
+
+
+
+<select id="checkPW" parameterType="map" resultType="String">
+	select #{id}
+	from
+		Consumer, Producer
+	where
+		(Consumer_id=#{id} and Consumer.pw=#{pw})
+		 or
+		(Producer_id=#{id} and Producer.pw=#{pw})
+</select>
+
+
+=======
+<mapper namespace="dao.BoardMapper">
+	<insert id="insertBoard" parameterType="Board">
+		insert into
+			board
+		values (
+			  boardseq.nextval
+			, #{name}
+			, #{title}
+			, #{content}
+			, default
+			, default
+		)
+	</insert>
+	
+	<select id="listBoard" resultType="Board">
+		select
+			*
+		from
+			board
+		order by
+			boardnum desc
+	</select>
+>>>>>>> 0d53d780c56e02fa60f1c1134b1b975d414f4582
+</mapper>
+
+
+
+
+
