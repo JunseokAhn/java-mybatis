@@ -4,11 +4,6 @@
   "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
 
-<<<<<<< HEAD
-
-
-=======
->>>>>>> 0d53d780c56e02fa60f1c1134b1b975d414f4582
 	<properties resource="db.properties"/>
 	<typeAliases>
 		<typeAlias type="VO.Consumer" alias="Consumer"/>
