@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<<<<<<< HEAD
+
 <mapper namespace="dao.Mapper">
 <select id="consumer_list" resultType="Consumer">
 	select *
@@ -72,31 +72,6 @@
 		(Producer_id=#{id} and Producer.pw=#{pw})
 </select>
 
-
-=======
-<mapper namespace="dao.BoardMapper">
-	<insert id="insertBoard" parameterType="Board">
-		insert into
-			board
-		values (
-			  boardseq.nextval
-			, #{name}
-			, #{title}
-			, #{content}
-			, default
-			, default
-		)
-	</insert>
-	
-	<select id="listBoard" resultType="Board">
-		select
-			*
-		from
-			board
-		order by
-			boardnum desc
-	</select>
->>>>>>> 0d53d780c56e02fa60f1c1134b1b975d414f4582
 </mapper>
 
 
