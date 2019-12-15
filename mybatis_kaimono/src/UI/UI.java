@@ -5,6 +5,7 @@ import java.util.Scanner;
 import VO.Consumer;
 import VO.Login;
 import VO.Producer;
+import VO.Syoubinn;
 import dao.dao;
 
 public class UI {
@@ -85,6 +86,8 @@ public class UI {
 
 	private void consumerMenu() {
 		// TODO Auto-generated method stub
+		//bridge +1
+		
 		System.out.println("===========소비자 메뉴===========");
 		System.out.println("1. 구매");
 		System.out.println("2. ");
@@ -121,7 +124,8 @@ public class UI {
 		System.out.print("가격을 입력하세요 : ");
 		price = sc.nextInt();
 		producer_id = L.getId();
-		boolean res = dao.enroll();
+		Syoubinn S = new Syoubinn(name, syuurui, price, producer_id);
+		boolean res = dao.enroll(S);
 		if(res)
 			System.out.println("등록 성공");
 		else

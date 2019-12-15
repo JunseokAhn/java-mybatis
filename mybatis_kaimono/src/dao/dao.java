@@ -11,6 +11,7 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import VO.Consumer;
 import VO.Login;
 import VO.Producer;
+import VO.Syoubinn;
 
 public class dao {
 	private SqlSessionFactory factory = MybatisConfig.getSqlSessionFactory();
@@ -91,12 +92,14 @@ public class dao {
 			System.out.println(i);
 	}
 
-	public boolean enroll() {
+	public boolean enroll(Syoubinn s) {
 		// TODO Auto-generated method stub
 		SqlSession session = factory.openSession();
 		Mapper mapper = session.getMapper(Mapper.class);
-
-		return false;
+		boolean res = mapper.enroll(s);
+		
+		
+		return res;
 	}
 
 }

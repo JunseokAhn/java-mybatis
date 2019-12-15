@@ -72,6 +72,22 @@
 		(Producer_id=#{id} and Producer.pw=#{pw})
 </select>
 
+
+<!-- <insert id="enroll" parameterType="Syoubinn">
+	insert into Syoubinn
+	(SYOUBINN_ID, NAME, SYUURUI, PRICE, PRODUCER_ID, S_INDATE, BRIDGE_ID)
+	values
+	(SYOUBINN_SEQ.nextval,
+	#{name},
+	#{syuurui},
+	#{price},
+	#{producer_id},
+	default,
+	BRIDGE_SEQ.currval
+	)
+
+
+</insert> -->
 </mapper>
 
 
