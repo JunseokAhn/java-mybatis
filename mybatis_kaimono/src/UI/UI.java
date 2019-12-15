@@ -3,6 +3,7 @@ package UI;
 import java.util.Scanner;
 
 import VO.Consumer;
+import VO.Login;
 import VO.Producer;
 import dao.dao;
 
@@ -18,7 +19,13 @@ public class UI {
 	private String name;
 	private String address; // nullable
 	private String phone; // nullable
-
+	
+	private int syoubinn_id;
+	private String syuurui;
+	private int price;
+	private String producer_id;
+	Login L;
+	
 	public UI() {
 		// TODO Auto-generated constructor stub
 		while (true) {
@@ -59,7 +66,11 @@ public class UI {
 		id = st.nextLine();
 		System.out.print("비밀번호를 입력하세요 : ");
 		pw = st.nextLine(); // 아이디, 중복검사 > 없으면 없는 아이디입니다. 비밀번호안맞으면 비밀번호x
-		type = dao.login(id, pw);// type을 반환받아서 생산자인지 소비자인지 구분
+		
+		L = dao.login(id, pw);// type을 반환받아서 생산자인지 소비자인지 구분
+		
+		type = L.getType();
+		
 		if (type == 0)
 			System.out.println("로그인 실패");
 		else {
@@ -75,15 +86,46 @@ public class UI {
 	private void consumerMenu() {
 		// TODO Auto-generated method stub
 		System.out.println("===========소비자 메뉴===========");
-
+		System.out.println("1. 구매");
+		System.out.println("2. ");
 		System.out.println("============================");
 	}
 
 	private void producerMenu() {
 		// TODO Auto-generated method stub
 		System.out.println("===========생산자 메뉴===========");
-
+		System.out.println("1. 상품등록");
+		System.out.println("2. 판매된 목록 리스트");
+		System.out.println("");
 		System.out.println("============================");
+		switch(sc.nextInt()) {
+		case 1:
+			enroll();
+			break;
+			
+		case 2:
+			break;
+			
+		default:
+			System.out.println("올바르지 않은 입력");		
+		
+		}
+	}
+
+	private void enroll() {
+		// TODO Auto-generated method stub
+		System.out.print("이름을 입력하세요 : ");
+		name = st.nextLine();
+		System.out.print("종류룰 입력하세요 : ");
+		syuurui = st.nextLine();
+		System.out.print("가격을 입력하세요 : ");
+		price = sc.nextInt();
+		producer_id = L.getId();
+		boolean res = dao.enroll();
+		if(res)
+			System.out.println("등록 성공");
+		else
+			System.out.println("등록 실패");
 	}
 
 	private void signUp() {

@@ -49,13 +49,13 @@
     where producer_id=#{value}
 </select>
 
-<select id="checkID1" parameterType="String" resultType="String">
-	select pw
+<select id="checkID1" parameterType="Consumer" resultType="Consumer">
+	select *
 	from Consumer
 	where Consumer_id=#{value}
 </select>
-<select id="checkID2" parameterType="String" resultType="String">
-	select pw
+<select id="checkID2" parameterType="Producer" resultType="Producer">
+	select *
 	from Producer
 	where Producer_id=#{value}
 </select>

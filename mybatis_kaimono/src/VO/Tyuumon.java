@@ -4,6 +4,7 @@ public class Tyuumon {
 	private int tyuumon_id; //seq
 	private String consumer_id;
 	private String t_indate; //default
+	private int bridge_id; //로그인할떄마다 1씩증가
 	
 	public Tyuumon() {
 		// TODO Auto-generated constructor stub
@@ -16,7 +17,8 @@ public class Tyuumon {
 
 	@Override
 	public String toString() {
-		return "tyuumon_id=" + tyuumon_id + ", consumer_id=" + consumer_id + ", t_indate=" + t_indate;
+		return "Tyuumon [tyuumon_id=" + tyuumon_id + ", consumer_id=" + consumer_id + ", t_indate=" + t_indate
+				+ ", bridge_id=" + bridge_id + "]";
 	}
 
 	public int getTyuumon_id() {
@@ -43,6 +45,13 @@ public class Tyuumon {
 		this.t_indate = t_indate;
 	}
 
-	
+	public int getBridge_id() {
+		return bridge_id;
+	}
+
+	public void setBridge_id(int bridge_id) {
+		this.bridge_id = bridge_id;
+	}
+
 	
 }

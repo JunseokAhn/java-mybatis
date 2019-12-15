@@ -20,8 +20,8 @@ public interface Mapper {
 
 	ArrayList<Producer> producer_list();
 
-	String checkID1(String id);
+	Consumer checkID1(String id);
 
-	String checkID2(String id);
+	Producer checkID2(String id);
 	
 }

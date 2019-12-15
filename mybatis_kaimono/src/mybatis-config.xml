@@ -8,7 +8,7 @@
 	<typeAliases>
 		<typeAlias type="VO.Consumer" alias="Consumer"/>
 		<typeAlias type="VO.Producer" alias="Producer"/>	
-		<typeAlias type="VO.Syoubinn_list" alias="Syoubinn_list"/>
+		<typeAlias type="VO.Bridge" alias="Bridge"/>
 		<typeAlias type="VO.Syoubinn" alias="Syoubinn"/>
 		<typeAlias type="VO.Tyuumon" alias="Tyuumon"/>
 	</typeAliases>

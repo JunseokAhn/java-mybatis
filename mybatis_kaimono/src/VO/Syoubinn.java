@@ -8,9 +8,10 @@ public class Syoubinn {
 	private int price;
 	private String producer_id;
 	private String s_indate; //default
+	private int bridge_id; //로그인할떄마다 1씩증가
 	
 	public Syoubinn() {
-		// TODO Auto-generated constructor stub
+		// TODO Auto-generated constructor stub	
 	}
 
 	public Syoubinn(String name, String syuurui, int price, String producer_id) {
@@ -23,8 +24,8 @@ public class Syoubinn {
 
 	@Override
 	public String toString() {
-		return "syoubinn_id=" + syoubinn_id + ", name=" + name + ", syuurui=" + syuurui + ", price=" + price
-				+ ", producer_id=" + producer_id + ", s_indate=" + s_indate;
+		return "Syoubinn [syoubinn_id=" + syoubinn_id + ", name=" + name + ", syuurui=" + syuurui + ", price=" + price
+				+ ", producer_id=" + producer_id + ", s_indate=" + s_indate + ", bridge_id=" + bridge_id + "]";
 	}
 
 	public int getSyoubinn_id() {
@@ -74,4 +75,14 @@ public class Syoubinn {
 	public void setS_indate(String s_indate) {
 		this.s_indate = s_indate;
 	}
+
+	public int getBridge_id() {
+		return bridge_id;
+	}
+
+	public void setBridge_id(int bridge_id) {
+		this.bridge_id = bridge_id;
+	}
+
+	
 }
