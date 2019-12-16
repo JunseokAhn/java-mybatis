@@ -6,6 +6,7 @@ import java.util.HashMap;
 import VO.Consumer;
 import VO.Producer;
 import VO.Syoubinn;
+import VO.Tyuumon;
 
 public interface Mapper {
 
@@ -26,5 +27,19 @@ public interface Mapper {
 	Producer checkID2(String id);
 
 	boolean enroll(Syoubinn s);
+
+	ArrayList<Syoubinn> selling();
+
+	ArrayList<Tyuumon> selled();
+
+	int addStock(HashMap<String, Object> map);
+
+	Syoubinn checkShoubinn(int syoubinn_id);
+
+	void changePrice(HashMap<String, Integer> map);
+
+	
+	
+
 	
 }

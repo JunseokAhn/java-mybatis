@@ -7,25 +7,28 @@ public class Syoubinn {
 	private String syuurui;
 	private int price;
 	private String producer_id;
+	private int stock;
 	private String s_indate; //default
-	private int bridge_id; //로그인할떄마다 1씩증가
+	private String t_indate;
 	
 	public Syoubinn() {
 		// TODO Auto-generated constructor stub	
 	}
 
-	public Syoubinn(String name, String syuurui, int price, String producer_id) {
+	public Syoubinn(String name, String syuurui, int price, String producer_id, int stock) {
 		super();
 		this.name = name;
 		this.syuurui = syuurui;
 		this.price = price;
 		this.producer_id = producer_id;
+		this.stock = stock;
 	}
 
 	@Override
 	public String toString() {
 		return "Syoubinn [syoubinn_id=" + syoubinn_id + ", name=" + name + ", syuurui=" + syuurui + ", price=" + price
-				+ ", producer_id=" + producer_id + ", s_indate=" + s_indate + ", bridge_id=" + bridge_id + "]";
+				+ ", producer_id=" + producer_id + ", stock=" + stock + ", s_indate=" + s_indate + ", t_indate="
+				+ t_indate + "]";
 	}
 
 	public int getSyoubinn_id() {
@@ -68,6 +71,14 @@ public class Syoubinn {
 		this.producer_id = producer_id;
 	}
 
+	public int getStock() {
+		return stock;
+	}
+
+	public void setStock(int stock) {
+		this.stock = stock;
+	}
+
 	public String getS_indate() {
 		return s_indate;
 	}
@@ -76,13 +87,14 @@ public class Syoubinn {
 		this.s_indate = s_indate;
 	}
 
-	public int getBridge_id() {
-		return bridge_id;
+	public String getT_indate() {
+		return t_indate;
 	}
 
-	public void setBridge_id(int bridge_id) {
-		this.bridge_id = bridge_id;
+	public void setT_indate(String t_indate) {
+		this.t_indate = t_indate;
 	}
+
 
 	
 }

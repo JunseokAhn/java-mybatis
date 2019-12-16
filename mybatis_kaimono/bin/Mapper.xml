@@ -73,21 +73,50 @@
 </select>
 
 
-<!-- <insert id="enroll" parameterType="Syoubinn">
+<insert id="enroll" parameterType="Syoubinn">
 	insert into Syoubinn
-	(SYOUBINN_ID, NAME, SYUURUI, PRICE, PRODUCER_ID, S_INDATE, BRIDGE_ID)
+	(SYOUBINN_ID, PRODUCER_ID,  NAME, SYUURUI,
+	 PRICE, STOCK,  S_INDATE,  T_INDATE)
 	values
 	(SYOUBINN_SEQ.nextval,
+	#{producer_id},
 	#{name},
 	#{syuurui},
 	#{price},
-	#{producer_id},
+	#{stock},
 	default,
-	BRIDGE_SEQ.currval
+	default
 	)
+</insert>
 
+<select id="selling" resultType="Syoubinn">
+	select *
+	from Syoubinn
+</select>
 
-</insert> -->
+<select id="selled" resultType="Tyuumon">
+	select *
+	from Tyuumon
+</select>
+
+<update id="addStock" parameterType="map">
+	update Syoubinn
+	set stock=stock+#{stock}
+	where  syoubinn_id = #{id}
+</update>
+
+<select id="checkShoubinn" parameterType="int" resultType="Syoubinn">
+	select *
+	from Syoubinn
+	where Syoubinn_id = #{syoubinn_id}
+</select>
+
+<update id="changePrice" parameterType="map">
+	update Syoubinn
+	set price=#{price}
+	where  syoubinn_id = #{syoubinn_id}
+</update>
+
 </mapper>
 
 
