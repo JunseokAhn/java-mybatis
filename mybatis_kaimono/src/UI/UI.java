@@ -9,12 +9,14 @@ import VO.Producer;
 import VO.Syoubinn;
 import VO.Tyuumon;
 import dao.dao;
+import dao.dao2;
 
 public class UI {
 	Scanner sc = new Scanner(System.in);
 	Scanner st = new Scanner(System.in);
 	dao dao = new dao();
-
+	dao2 dao2 = new dao2();
+	
 	private int type;
 	private int choice;
 	private String id;
@@ -54,6 +56,7 @@ public class UI {
 				adminMenu();
 				break;
 			}
+			break;
 		default:
 			System.out.println("잘못된 입력입니다.");
 			break;
@@ -101,6 +104,7 @@ public class UI {
 		L = dao.login(id, pw);// type을 반환받아서 생산자인지 소비자인지 구분
 
 		type = L.getType();
+		id = L.getId();
 
 		if (type == 0)
 			System.out.println("로그인 실패");
@@ -123,14 +127,18 @@ public class UI {
 		System.out.println("===========소비자 메뉴===========");
 		System.out.println("1. 구매");
 		System.out.println("2. 구매한 목록 리스트"); // 총 소비금액
-		System.out.println("0. 로그아웃");
+		System.out.println("3. 구매 취소");
+		System.out.println("\n0. 로그 아웃");
 		System.out.println("============================");
 		switch (sc.nextInt()) {
 		case 1:
-			buy();
+			buy(id);
 			break;
 		case 2:
-
+			buyList(id);
+			break;
+		case 3:
+			buyCancel(id);
 			break;
 		case 0:
 			menu();
@@ -142,16 +150,58 @@ public class UI {
 
 	}
 
-	private void buy() {
+	private void buyCancel(String id) {
 		// TODO Auto-generated method stub
-		selling();
-		System.out.println("상품id를 입력하세요");
-		boolean res = false;
-		if (res)
-			System.out.println("구매 성공");
-		else
-			System.out.println("구매 실패");
+		
+	}
 
+	private void buy(String id) {
+		selling();
+
+		System.out.print("\n상품 ID 입력 : ");
+		int syoubinn_id = sc.nextInt();
+		System.out.println("구매 개수 입력 : ");
+		int stock = sc.nextInt();
+
+		boolean res = dao2.buy(id, syoubinn_id, stock);
+		if (res) {
+			System.out.println("구매 성공\n");
+
+			while (true) {
+				System.out.println("==============================");
+				System.out.println("1. 구매내역 보기");
+				System.out.println("0. 상위 메뉴");
+				System.out.print("메뉴 선택 : ");
+				try {
+					switch (sc.nextInt()) {
+					case 1:
+						ArrayList<Tyuumon> tyu = dao2.buyList(id);
+						if (tyu != null)
+							System.out.println(tyu.toString());
+						else
+							System.out.println("주문내역이 없습니다.");
+					case 0:
+						return;
+					default:
+						System.out.println("잘못 입력하였습니다.");
+					}
+				} catch (Exception e) {
+					System.out.println("숫자만 입력해주세요.");
+					sc.nextLine();
+				}
+			}
+		} else
+			System.out.println("구매 실패");
+	}
+
+	private void buyList(String id) {
+		ArrayList<Tyuumon> tyu = dao2.buyList(id);
+		if (tyu != null) {
+			for(Tyuumon i : tyu)
+			System.out.println(i);
+		}
+		else
+			System.out.println("주문내역이 없습니다.");
 	}
 
 	private void producerMenu() {
@@ -159,7 +209,7 @@ public class UI {
 		System.out.println("===========생산자 메뉴===========");
 		System.out.println("1. 상품등록");
 		System.out.println("2. 판매중 목록 리스트");
-		System.out.println("3. 판매된 목록 리스트"); // 팔린 총 금액
+		System.out.println("3. 판매된 목록 리스트"); //미구현, // +팔린 총 금액
 		System.out.println("4. 판매정보 수정");
 		System.out.println("5. 회원정보 수정");
 		System.out.println("9. 탈퇴");
@@ -195,8 +245,8 @@ public class UI {
 
 	private void selledPro() {
 		// TODO Auto-generated method stub
-		ArrayList<Syoubinn> list = dao.selledPro(L.getId());
-		for (Syoubinn i : list)
+		ArrayList<Tyuumon> list = dao.selledPro(L.getId());
+		for (Tyuumon i : list)
 			System.out.println(i);
 	}
 
@@ -289,6 +339,7 @@ public class UI {
 			System.out.println("----------------------------");
 			System.out.println("1. 가격 변경");
 			System.out.println("2. 재고 추가");
+			System.out.println("3. 판매 종료");
 			System.out.println("----------------------------");
 			switch (sc.nextInt()) {
 			case 1:
@@ -300,8 +351,12 @@ public class UI {
 			case 2:
 				System.out.println("재고를 입력하세요 : ");
 				stock = sc.nextInt();
-				dao.addStock(id, stock);
+				dao.addStock(syoubinn_id, stock);
 				System.out.println("추가되었습니다");
+				break;
+			case 3:
+				dao.deleteSyoubinn(syoubinn_id);
+				System.out.println("판매 종료되었습니다.");
 				break;
 			default:
 				System.out.println("올바르지 않은 입력");

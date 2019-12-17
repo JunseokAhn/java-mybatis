@@ -2,32 +2,33 @@ package VO;
 
 public class Tyuumon {
 	private int tyuumon_id; // seq
+	private String consumer_id;
 	private String name;
 	private String syuurui;
 	private int price;
-	private String consumer_id;
 	private int stock;
-	private String s_indate; //default
+	private String s_indate; // default
 	private String t_indate;
 
 	public Tyuumon() {
-		// TODO Auto-generated constructor stub
+	// TODO Auto-generated constructor stub
 	}
-
-	public Tyuumon(String name, String syuurui, int price, String consumer_id, int stock) {
+	public Tyuumon(String consumer_id, String name, String syuurui, int price, int stock, String s_indate) {
 		super();
+		this.consumer_id = consumer_id;
 		this.name = name;
 		this.syuurui = syuurui;
 		this.price = price;
-		this.consumer_id = consumer_id;
 		this.stock = stock;
+		this.s_indate = s_indate;
 	}
+
+
 
 	@Override
 	public String toString() {
-		return "Tyuumon [tyuumon_id=" + tyuumon_id + ", name=" + name + ", syuurui=" + syuurui + ", price=" + price
-				+ ", consumer_id=" + consumer_id + ", stock=" + stock + ", t_indate="
-				+ t_indate + "]";
+		return "주문id :" + tyuumon_id + ", 상품명 :" + name + ", 종류 :" + syuurui + ", 가격 :" + price
+				+ ", 구매자id :" + consumer_id + ", 수량 :" + stock + ", 구매시기 :" + t_indate;
 	}
 
 	public int getTyuumon_id() {
@@ -93,8 +94,5 @@ public class Tyuumon {
 	public void setT_indate(String t_indate) {
 		this.t_indate = t_indate;
 	}
-
-	
-	
 
 }

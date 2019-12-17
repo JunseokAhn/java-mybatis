@@ -102,7 +102,7 @@
 <update id="addStock" parameterType="map">
 	update Syoubinn
 	set stock=stock+#{stock}
-	where  syoubinn_id = #{id}
+	where  syoubinn_id = #{syoubinn_id}
 </update>
 
 <select id="checkShoubinn" parameterType="int" resultType="Syoubinn">
@@ -152,11 +152,16 @@
 	where producer_id = #{value}
 </select>
 
-<select id="selledPro" parameterType="String" resultType="Syoubinn">
-	select *
-	from syoubinn
-	where producer_id = #{value}
-</select>
+<!-- <select id="selledPro" parameterType="int" resultType="Tyuumon">
+	  select *
+  from tyuumon right join bridge using (tyuumon_id);
+</select> -->
+
+
+<delete id="deleteSyoubinn" parameterType="int">
+	delete from syoubinn
+	where syoubinn_id = #{syoubinn_id}
+</delete>
 </mapper>
 
 

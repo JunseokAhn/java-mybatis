@@ -118,16 +118,16 @@ public class dao {
 		SqlSession session = factory.openSession();
 		Mapper mapper = session.getMapper(Mapper.class);
 		ArrayList<Tyuumon> list = mapper.selled();
-
+		
 		return list;
 	}
 
-	public boolean addStock(String id, int stock) {
+	public boolean addStock(int syoubinn_id, int stock) {
 		// TODO Auto-generated method stub
 		SqlSession session = factory.openSession();
 		Mapper mapper = session.getMapper(Mapper.class);
-		HashMap<String, Object> map = new HashMap<>();
-		map.put("id", id);
+		HashMap<String, Integer> map = new HashMap<>();
+		map.put("syoubinn_id", syoubinn_id);
 		map.put("stock", stock);
 		int res = mapper.addStock(map);
 		session.commit();
@@ -238,13 +238,24 @@ public class dao {
 		return list;
 	}
 
-	public ArrayList<Syoubinn> selledPro(String id) {
+	public ArrayList<Tyuumon> selledPro(String id) {
 		// TODO Auto-generated method stub
 		SqlSession session = factory.openSession();
 		Mapper mapper = session.getMapper(Mapper.class);
-		ArrayList<Syoubinn> list=mapper.selledPro(id);
+		ArrayList<Tyuumon> list=mapper.selledPro(id);
+		
+		
 		session.close();
 		return list;
+	}
+
+	public void deleteSyoubinn(int syoubinn_id) {
+		// TODO Auto-generated method stub
+		SqlSession session = factory.openSession();
+		Mapper mapper = session.getMapper(Mapper.class);
+		mapper.deleteSyoubinn(syoubinn_id);
+		session.commit();
+		session.close();
 	}
 
 

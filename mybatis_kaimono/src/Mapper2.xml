@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="dao.Mapper2">
+
+<select id="searchSyo" parameterType="int" resultType="Syoubinn">
+   select
+      *
+   from
+      syoubinn
+   where
+      syoubinn_id = #{n}
+</select>
+
+
+<insert id="buy" parameterType="Tyuumon">
+   insert into 
+      tyuumon
+   values(
+      tyuumon_seq.nextval,
+      #{consumer_id},
+      #{name},
+      #{syuurui},
+      #{price},
+      #{stock},
+      default,
+      default
+      )
+</insert>
+
+
+<update id="downStock" parameterType="Syoubinn">
+   update
+      syoubinn
+   set
+      stock = stock - #{stock}
+   where
+      syoubinn_id = #{syoubinn_id} and
+      stock >= #{stock}
+</update>
+
+
+<select id="buyList" parameterType="String" resultType="Tyuumon">
+   select
+      *
+   from
+      tyuumon
+   where
+      consumer_id = #{id}
+</select>
+
+<insert id="getBridge" parameterType="Bridge">
+   insert into  bridge
+   values(
+      #{tyuumon_id},
+     #{syoubinn_id}
+     )
+</insert>
+</mapper>

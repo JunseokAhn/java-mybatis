@@ -32,7 +32,7 @@ public interface Mapper {
 
 	ArrayList<Tyuumon> selled();
 
-	int addStock(HashMap<String, Object> map);
+	int addStock(HashMap<String, Integer> map);
 
 	Syoubinn checkShoubinn(int syoubinn_id);
 
@@ -50,7 +50,9 @@ public interface Mapper {
 
 	ArrayList<Syoubinn> sellingPro(String id);
 
-	ArrayList<Syoubinn> selledPro(String id);
+	ArrayList<Tyuumon> selledPro(String id);
+
+	void deleteSyoubinn(int syoubinn_id);
 	
 
 	
