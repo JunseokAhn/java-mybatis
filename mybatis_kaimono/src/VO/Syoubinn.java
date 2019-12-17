@@ -26,9 +26,8 @@ public class Syoubinn {
 
 	@Override
 	public String toString() {
-		return "Syoubinn [syoubinn_id=" + syoubinn_id + ", name=" + name + ", syuurui=" + syuurui + ", price=" + price
-				+ ", producer_id=" + producer_id + ", stock=" + stock + ", s_indate=" + s_indate + ", t_indate="
-				+ t_indate + "]";
+		return "상품id :" + syoubinn_id + ", 이름 :" + name + ", 종류 :" + syuurui + ", 가격 :" + price
+				+ ", 생산자id :" + producer_id + ", 재고 :" + stock + ", 등록시기 : "+ s_indate;
 	}
 
 	public int getSyoubinn_id() {

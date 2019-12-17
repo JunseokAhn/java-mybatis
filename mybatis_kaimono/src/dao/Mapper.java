@@ -38,7 +38,19 @@ public interface Mapper {
 
 	void changePrice(HashMap<String, Integer> map);
 
-	
+	void updateProPw(HashMap<String, String> map);
+
+	void updateProName(HashMap<String, String> map);
+
+	void updateProAddress(HashMap<String, String> map);
+
+	void updateProPhone(HashMap<String, String> map);
+
+	int deleteProducer(String id);
+
+	ArrayList<Syoubinn> sellingPro(String id);
+
+	ArrayList<Syoubinn> selledPro(String id);
 	
 
 	

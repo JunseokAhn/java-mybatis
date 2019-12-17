@@ -26,7 +26,7 @@ public class Tyuumon {
 	@Override
 	public String toString() {
 		return "Tyuumon [tyuumon_id=" + tyuumon_id + ", name=" + name + ", syuurui=" + syuurui + ", price=" + price
-				+ ", consumer_id=" + consumer_id + ", stock=" + stock + ", s_indate=" + s_indate + ", t_indate="
+				+ ", consumer_id=" + consumer_id + ", stock=" + stock + ", t_indate="
 				+ t_indate + "]";
 	}
 

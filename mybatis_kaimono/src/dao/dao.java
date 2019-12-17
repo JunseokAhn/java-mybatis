@@ -145,10 +145,10 @@ public class dao {
 			return 0;
 		else {
 
-			if (S.getProducer_id() == id) {
-				return 1;
-			} else {
+			if (S.getProducer_id().equals(id)) {
 				return 2;
+			} else {
+				return 1;
 			}
 		}
 
@@ -165,5 +165,88 @@ public class dao {
 		session.commit();
 		session.close();
 	}
+
+	public void updateProPw(String id, String pw) {
+		// TODO Auto-generated method stub
+		SqlSession session = factory.openSession();
+		Mapper mapper = session.getMapper(Mapper.class);
+		HashMap<String, String> map = new HashMap<>();
+		map.put("id", id);
+		map.put("pw", pw);
+		mapper.updateProPw(map);
+		session.commit();
+		session.close();
+		
+	}
+
+	public void updateProName(String id, String name) {
+		// TODO Auto-generated method stub
+		SqlSession session = factory.openSession();
+		Mapper mapper = session.getMapper(Mapper.class);
+		HashMap<String, String> map = new HashMap<>();
+		map.put("id", id);
+		map.put("name", name);
+		mapper.updateProName(map);
+		session.commit();
+		session.close();
+			
+	}
+
+	public void updateProAddress(String id, String address) {
+		// TODO Auto-generated method stub
+		SqlSession session = factory.openSession();
+		Mapper mapper = session.getMapper(Mapper.class);
+		HashMap<String, String> map = new HashMap<>();
+		map.put("id", id);
+		map.put("address", address);
+		mapper.updateProAddress(map);
+		session.commit();
+		session.close();
+	}
+
+	public void updateProPhone(String id, String phone) {
+		// TODO Auto-generated method stub
+		SqlSession session = factory.openSession();
+		Mapper mapper = session.getMapper(Mapper.class);
+		HashMap<String, String> map = new HashMap<>();
+		map.put("id", id);
+		map.put("address", phone);
+		mapper.updateProPhone(map);
+		session.commit();
+		session.close();
+			
+	}
+
+	public boolean deleteProducer(String id) {
+		// TODO Auto-generated method stub
+		// TODO Auto-generated method stub
+		SqlSession session = factory.openSession();
+		Mapper mapper = session.getMapper(Mapper.class);
+		int res = mapper.deleteProducer(id);
+		session.commit();
+		session.close();
+		
+		return res>0;
+	}
+
+	public ArrayList<Syoubinn> sellingPro(String id) {
+		// TODO Auto-generated method stub
+		SqlSession session = factory.openSession();
+		Mapper mapper = session.getMapper(Mapper.class);
+		ArrayList<Syoubinn> list=mapper.sellingPro(id);
+		session.close();
+		return list;
+	}
+
+	public ArrayList<Syoubinn> selledPro(String id) {
+		// TODO Auto-generated method stub
+		SqlSession session = factory.openSession();
+		Mapper mapper = session.getMapper(Mapper.class);
+		ArrayList<Syoubinn> list=mapper.selledPro(id);
+		session.close();
+		return list;
+	}
+
+
 
 }

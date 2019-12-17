@@ -41,7 +41,7 @@ public class UI {
 		// TODO Auto-generated method stub
 		System.out.println("1.로그인");
 		System.out.println("2. 회원가입");
-		System.out.println("3. 전체 이용자 조회");
+		System.out.println("3. 관리자 메뉴");
 		switch (sc.nextInt()) {
 		case 1:
 			login();
@@ -50,13 +50,40 @@ public class UI {
 			signUp();
 			break;
 		case 3:
-			list();
-			break;
+			while (true) {
+				adminMenu();
+				break;
+			}
 		default:
 			System.out.println("잘못된 입력입니다.");
 			break;
 		}
 
+	}
+
+	private void adminMenu() {
+		// TODO Auto-generated method stub
+		System.out.println("1. 전체 이용자 조회");
+		System.out.println("2. 판매중인 전체 상품 조회");
+		System.out.println("3. 판매된 전체 상품 조회");
+		System.out.println("0. 돌아가기");
+		switch (sc.nextInt()) {
+		case 1:
+			list();
+			break;
+		case 2:
+			selling();
+			break;
+		case 3:
+			selled();
+			break;
+		case 0:
+			menu();
+			break;
+		default:
+			System.out.println("올바르지 않은 입력");
+
+		}
 	}
 
 	private void list() {
@@ -93,8 +120,6 @@ public class UI {
 
 	private void consumerMenu() {
 		// TODO Auto-generated method stub
-		// bridge +1
-
 		System.out.println("===========소비자 메뉴===========");
 		System.out.println("1. 구매");
 		System.out.println("2. 구매한 목록 리스트"); // 총 소비금액
@@ -110,7 +135,7 @@ public class UI {
 		case 0:
 			menu();
 			break;
-		
+
 		default:
 			System.out.println("올바르지 않은 입력");
 		}
@@ -144,11 +169,11 @@ public class UI {
 		case 1:
 			enroll();
 			break;
-		case 2:
-			selling();
+		case 2: // id랑 일치하는 목록만 보기
+			sellingPro();
 			break;
 		case 3:
-			selled();
+			selledPro();
 			break;
 		case 4:
 			updateSyoubinn();
@@ -157,7 +182,7 @@ public class UI {
 			updateProducer();
 			break;
 		case 9:
-			
+			deleteProducer();
 			break;
 		case 0:
 			menu();
@@ -166,6 +191,36 @@ public class UI {
 			System.out.println("올바르지 않은 입력");
 
 		}
+	}
+
+	private void selledPro() {
+		// TODO Auto-generated method stub
+		ArrayList<Syoubinn> list = dao.selledPro(L.getId());
+		for (Syoubinn i : list)
+			System.out.println(i);
+	}
+
+	private void sellingPro() {
+		// TODO Auto-generated method stub
+		ArrayList<Syoubinn> list = dao.sellingPro(L.getId());
+		for (Syoubinn i : list)
+			System.out.println(i);
+	}
+
+	private void deleteProducer() {
+		// TODO Auto-generated method stub
+		System.out.print("비밀번호를 입력하세요 : ");
+		pw = st.nextLine();
+		if (L.getPw().equals(pw) == false) {
+			System.out.println("비밀번호가 틀립니다.");
+			return;
+		}
+		boolean res = dao.deleteProducer(L.getId());
+		if (res) {
+			System.out.println("삭제 성공");
+			menu();
+		} else
+			System.out.println("삭제 실패");
 	}
 
 	private void updateProducer() {
@@ -180,21 +235,29 @@ public class UI {
 		System.out.println("1. 비밀번호 변경");
 		System.out.println("2. 이름 변경");
 		System.out.println("3. 주소 변경");
-		System.out.println("4. 휴대폰번호 변경");
+		System.out.println("4. 전화번호 변경");
 		System.out.println("----------------------------");
-		
-		switch(sc.nextInt()) {
+
+		switch (sc.nextInt()) {
 		case 1:
-			
+			System.out.println("변경하실 비밀번호를 입력하세요");
+			pw = st.nextLine();
+			dao.updateProPw(L.getId(), pw);
 			break;
 		case 2:
-			
+			System.out.println("변경하실 이름을 입력하세요");
+			name = st.nextLine();
+			dao.updateProName(L.getId(), name);
 			break;
 		case 3:
-			
+			System.out.println("변경하실 주소를 입력하세요");
+			address = st.nextLine();
+			dao.updateProAddress(L.getId(), address);
 			break;
 		case 4:
-			
+			System.out.println("변경하실 전화번호를 입력하세요");
+			phone = st.nextLine();
+			dao.updateProPhone(L.getId(), phone);
 			break;
 		default:
 			System.out.println("올바르지 않은 입력");
@@ -219,7 +282,7 @@ public class UI {
 			System.out.println("해당 상품이 존재하지 않습니다.");
 		}
 		if (res == 1) {
-			System.out.println("다른 생산자의 상품입니다.");
+			System.out.println("다른 생산자의 상품입니다.");// 안됨
 		}
 		if (res == 2) {
 

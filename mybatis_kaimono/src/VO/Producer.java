@@ -24,7 +24,7 @@ public class Producer {
 
 	@Override
 	public String toString() {
-		return "producer_id=" + producer_id + ", pw=" + pw + ", name=" + name + ", address=" + address + ", phone="
+		return "생산자id :" + producer_id + ", pw :" + pw + ", 이름 :" + name + ", 주소 :" + address + ", 번호 :"
 				+ phone;
 	}
 

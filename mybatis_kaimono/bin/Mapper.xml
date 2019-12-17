@@ -117,6 +117,46 @@
 	where  syoubinn_id = #{syoubinn_id}
 </update>
 
+<update id="updateProPw" parameterType="map">
+	update Producer
+	set pw=#{pw}
+	where producer_id = #{id}
+</update>
+
+<update id="updateProName" parameterType="map">
+	update Producer
+	set name=#{name}
+	where producer_id = #{id}
+</update>
+
+<update id="updateProAddress" parameterType="map">
+	update Producer
+	set address=#{address}
+	where producer_id = #{id}
+</update>
+
+<update id="updateProPhone" parameterType="map">
+	update Producer
+	set phone=#{phone}
+	where producer_id = #{id}
+</update>
+
+<delete id="deleteProducer" parameterType="String">
+	delete from Producer
+	where producer_id=#{value}
+</delete>
+
+<select id="sellingPro" parameterType="String" resultType="Syoubinn">
+	select *
+	from syoubinn
+	where producer_id = #{value}
+</select>
+
+<select id="selledPro" parameterType="String" resultType="Syoubinn">
+	select *
+	from syoubinn
+	where producer_id = #{value}
+</select>
 </mapper>
 
 

@@ -23,7 +23,7 @@ public class Consumer {
 
 	@Override
 	public String toString() {
-		return "consumer_id=" + consumer_id + ", pw=" + pw + ", name=" + name + ", address=" + address + ", phone="
+		return "소비자id :" + consumer_id + ", pw :" + pw + ", 이름 :" + name + ", 주소 :" + address + ", 번호 :"
 				+ phone;
 	}
 
