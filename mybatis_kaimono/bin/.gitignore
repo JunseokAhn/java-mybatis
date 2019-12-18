@@ -1,4 +1,8 @@
+/Main/
+/Mapper.xml
+/Mapper2.xml
 /UI/
 /VO/
 /dao/
-/Mapper2.xml
+/db.properties
+/mybatis-config.xml

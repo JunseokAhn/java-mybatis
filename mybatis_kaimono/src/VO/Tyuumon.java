@@ -23,8 +23,12 @@ public class Tyuumon {
 		this.s_indate = s_indate;
 	}
 
-
-
+	public Tyuumon(int tyuumon_id, String consumer_id, int stock) {
+		// TODO Auto-generated constructor stub
+		this.tyuumon_id = tyuumon_id;
+		this.consumer_id = consumer_id;
+		this.stock = stock;
+	}
 	@Override
 	public String toString() {
 		return "주문id :" + tyuumon_id + ", 상품명 :" + name + ", 종류 :" + syuurui + ", 가격 :" + price

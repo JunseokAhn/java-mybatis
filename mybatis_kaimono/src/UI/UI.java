@@ -16,9 +16,8 @@ public class UI {
 	Scanner st = new Scanner(System.in);
 	dao dao = new dao();
 	dao2 dao2 = new dao2();
-	
+
 	private int type;
-	private int choice;
 	private String id;
 	private String pw;
 	private String name;
@@ -35,13 +34,19 @@ public class UI {
 	public UI() {
 		// TODO Auto-generated constructor stub
 		while (true) {
-			menu();
+			try {
+				menu();
+			} catch (Exception e) {
+				// TODO: handle exception
+				System.out.println("잘못된 입력입니다.");
+				sc.nextLine();
+			}
 		}
 	}
 
 	private void menu() {
 		// TODO Auto-generated method stub
-		System.out.println("1.로그인");
+		System.out.println("1. 로그인");
 		System.out.println("2. 회원가입");
 		System.out.println("3. 관리자 메뉴");
 		switch (sc.nextInt()) {
@@ -52,10 +57,7 @@ public class UI {
 			signUp();
 			break;
 		case 3:
-			while (true) {
-				adminMenu();
-				break;
-			}
+			adminMenu();
 			break;
 		default:
 			System.out.println("잘못된 입력입니다.");
@@ -73,12 +75,15 @@ public class UI {
 		switch (sc.nextInt()) {
 		case 1:
 			list();
+			adminMenu();
 			break;
 		case 2:
 			selling();
+			adminMenu();
 			break;
 		case 3:
 			selled();
+			adminMenu();
 			break;
 		case 0:
 			menu();
@@ -128,6 +133,8 @@ public class UI {
 		System.out.println("1. 구매");
 		System.out.println("2. 구매한 목록 리스트"); // 총 소비금액
 		System.out.println("3. 구매 취소");
+		System.out.println("4. 회원정보 수정");
+		System.out.println("5. 탈퇴");
 		System.out.println("\n0. 로그 아웃");
 		System.out.println("============================");
 		switch (sc.nextInt()) {
@@ -140,6 +147,13 @@ public class UI {
 		case 3:
 			buyCancel(id);
 			break;
+		case 4:
+			userUpdate(id);
+			break;
+		case 5:
+			userDelete(id);
+			break;
+
 		case 0:
 			menu();
 			break;
@@ -150,9 +164,110 @@ public class UI {
 
 	}
 
+	private void userDelete(String id) {
+		System.out.print("비밀번호를 입력하세요 : ");
+		try {
+			pw = st.nextLine();
+			if (L.getPw().equals(pw) == false) {
+				System.out.println("비밀번호가 틀립니다.");
+				return;
+			}
+			boolean res = dao2.deleteUser(L.getId());
+			if (res) {
+				System.out.println("삭제 성공");
+				menu();
+			} else
+				System.out.println("삭제 실패");
+		} catch (Exception e) {
+			System.out.println("비밀번호를 다시 확인해주세요.");
+			sc.nextLine();
+		}
+	}
+
+	private void userUpdate(String id) {
+		while (true) {
+			try {
+				System.out.print("\n비밀번호를 입력하세요 : ");
+				pw = st.nextLine();
+
+				if (L.getPw().equals(pw) == false) {
+					System.out.println("비밀번호가 틀립니다.");
+					return;
+				}
+
+				System.out.println("----------------------------");
+				System.out.println("1. 비밀번호 변경");
+				System.out.println("2. 이름 변경");
+				System.out.println("3. 주소 변경");
+				System.out.println("4. 전화번호 변경");
+				System.out.println("\n0. 상위 메뉴");
+				System.out.println("----------------------------");
+				System.out.print("메뉴 입력 : ");
+				try {
+					switch (sc.nextInt()) {
+					case 1:
+						System.out.println("변경하실 비밀번호를 입력하세요");
+						pw = st.nextLine();
+						dao2.updateUserPw(L.getId(), pw);
+						L.setPw(pw);
+						System.out.println("변경 완료 \n다시 로그인해주세요");
+						menu();
+						break;
+					case 2:
+						System.out.println("변경하실 이름을 입력하세요");
+						name = st.nextLine();
+						dao2.updateUserName(L.getId(), name);
+						System.out.println("변경 완료");
+						break;
+					case 3:
+						System.out.println("변경하실 주소를 입력하세요");
+						address = st.nextLine();
+						dao2.updateUserAddress(L.getId(), address);
+						System.out.println("변경 완료");
+						break;
+					case 4:
+						System.out.println("변경하실 전화번호를 입력하세요");
+						phone = st.nextLine();
+						dao2.updateUserPhone(L.getId(), phone);
+						System.out.println("변경 완료");
+						break;
+
+					case 0:
+						return;
+					default:
+						System.out.println("올바르지 않은 입력");
+						break;
+					}
+				} catch (Exception e) {
+					System.out.println("숫자만 입력해주세요.");
+					sc.nextLine();
+				}
+
+			} catch (Exception e) {
+				System.out.println("비밀번호를 다시 확인해주세요.");
+				sc.nextLine();
+			}
+		}
+	}
+
 	private void buyCancel(String id) {
-		// TODO Auto-generated method stub
-		
+		try {
+			buyList(id);
+			System.out.print("\n취소 주문번호 입력 : ");
+			int tyuumon_id = sc.nextInt();
+			System.out.println("취소 수량 입력 : ");
+			int stock = sc.nextInt();
+
+			boolean res = dao2.buyCancel(id, tyuumon_id, stock);
+			if (res) {
+				System.out.println("취소 성공\n");
+				buyList(id);
+			} else
+				System.out.println("취소 실패");
+		} catch (Exception e) {
+			System.out.println("주문번호와 수량을 재확인해주세요.");
+			sc.nextLine();
+		}
 	}
 
 	private void buy(String id) {
@@ -160,9 +275,18 @@ public class UI {
 
 		System.out.print("\n상품 ID 입력 : ");
 		int syoubinn_id = sc.nextInt();
-		System.out.println("구매 개수 입력 : ");
-		int stock = sc.nextInt();
 
+		if (dao.checkSyoubinn(L.getId(), syoubinn_id) == 0) {
+			System.out.println("해당 상품이 존재하지 않습니다.");
+			return;
+		}
+		System.out.print("구매 개수 입력 : ");
+		int stock = sc.nextInt();
+		boolean res2 = dao2.checkStock(syoubinn_id, stock);
+		if (res2 == false) {
+			System.out.println("재고가 모자랍니다.");
+			return;
+		}
 		boolean res = dao2.buy(id, syoubinn_id, stock);
 		if (res) {
 			System.out.println("구매 성공\n");
@@ -197,10 +321,9 @@ public class UI {
 	private void buyList(String id) {
 		ArrayList<Tyuumon> tyu = dao2.buyList(id);
 		if (tyu != null) {
-			for(Tyuumon i : tyu)
-			System.out.println(i);
-		}
-		else
+			for (Tyuumon i : tyu)
+				System.out.println(i);
+		} else
 			System.out.println("주문내역이 없습니다.");
 	}
 
@@ -209,7 +332,7 @@ public class UI {
 		System.out.println("===========생산자 메뉴===========");
 		System.out.println("1. 상품등록");
 		System.out.println("2. 판매중 목록 리스트");
-		System.out.println("3. 판매된 목록 리스트"); //미구현, // +팔린 총 금액
+		System.out.println("3. 판매된 목록 리스트"); // 미구현, // +팔린 총 금액
 		System.out.println("4. 판매정보 수정");
 		System.out.println("5. 회원정보 수정");
 		System.out.println("9. 탈퇴");
@@ -246,6 +369,8 @@ public class UI {
 	private void selledPro() {
 		// TODO Auto-generated method stub
 		ArrayList<Tyuumon> list = dao.selledPro(L.getId());
+		if (list == null)
+			return;
 		for (Tyuumon i : list)
 			System.out.println(i);
 	}
@@ -275,43 +400,52 @@ public class UI {
 
 	private void updateProducer() {
 		// TODO Auto-generated method stub
-		System.out.print("비밀번호를 입력하세요 : ");
-		pw = st.nextLine();
-		if (L.getPw().equals(pw) == false) {
-			System.out.println("비밀번호가 틀립니다.");
-			return;
-		}
-		System.out.println("----------------------------");
-		System.out.println("1. 비밀번호 변경");
-		System.out.println("2. 이름 변경");
-		System.out.println("3. 주소 변경");
-		System.out.println("4. 전화번호 변경");
-		System.out.println("----------------------------");
-
-		switch (sc.nextInt()) {
-		case 1:
-			System.out.println("변경하실 비밀번호를 입력하세요");
+		while (true) {
+			System.out.print("비밀번호를 입력하세요 : ");
 			pw = st.nextLine();
-			dao.updateProPw(L.getId(), pw);
-			break;
-		case 2:
-			System.out.println("변경하실 이름을 입력하세요");
-			name = st.nextLine();
-			dao.updateProName(L.getId(), name);
-			break;
-		case 3:
-			System.out.println("변경하실 주소를 입력하세요");
-			address = st.nextLine();
-			dao.updateProAddress(L.getId(), address);
-			break;
-		case 4:
-			System.out.println("변경하실 전화번호를 입력하세요");
-			phone = st.nextLine();
-			dao.updateProPhone(L.getId(), phone);
-			break;
-		default:
-			System.out.println("올바르지 않은 입력");
-			break;
+			if (L.getId().equals(id)) {
+				if (L.getPw().equals(pw) == false) {
+					System.out.println("비밀번호가 틀립니다.");
+					return;
+				}
+			} else
+				return;
+			System.out.println("----------------------------");
+			System.out.println("1. 비밀번호 변경");
+			System.out.println("2. 이름 변경");
+			System.out.println("3. 주소 변경");
+			System.out.println("4. 전화번호 변경");
+			System.out.println("0. 상위메뉴로");
+			System.out.println("----------------------------");
+
+			switch (sc.nextInt()) {
+			case 1:
+				System.out.println("변경하실 비밀번호를 입력하세요");
+				pw = st.nextLine();
+				dao.updateProPw(L.getId(), pw);
+				L.setPw(pw);
+				break;
+			case 2:
+				System.out.println("변경하실 이름을 입력하세요");
+				name = st.nextLine();
+				dao.updateProName(L.getId(), name);
+				break;
+			case 3:
+				System.out.println("변경하실 주소를 입력하세요");
+				address = st.nextLine();
+				dao.updateProAddress(L.getId(), address);
+				break;
+			case 4:
+				System.out.println("변경하실 전화번호를 입력하세요");
+				phone = st.nextLine();
+				dao.updateProPhone(L.getId(), phone);
+				break;
+			case 0:
+				return;
+			default:
+				System.out.println("올바르지 않은 입력");
+				break;
+			}
 		}
 	}
 
@@ -389,7 +523,7 @@ public class UI {
 		System.out.print("가격을 입력하세요 : ");
 		price = sc.nextInt();
 		producer_id = L.getId();
-		System.out.print("재고를 입력하세요");
+		System.out.print("재고를 입력하세요 : ");
 		stock = sc.nextInt();
 		Syoubinn S = new Syoubinn(name, syuurui, price, producer_id, stock);
 		boolean res = dao.enroll(S);

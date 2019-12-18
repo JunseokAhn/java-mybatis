@@ -50,10 +50,12 @@ public interface Mapper {
 
 	ArrayList<Syoubinn> sellingPro(String id);
 
+	void deleteSyoubinn(int syoubinn_id);
+
+	int checkStock(HashMap<String, Integer> map);
+
 	ArrayList<Tyuumon> selledPro(String id);
 
-	void deleteSyoubinn(int syoubinn_id);
 	
-
 	
 }

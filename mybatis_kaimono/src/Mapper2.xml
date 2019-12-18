@@ -15,7 +15,7 @@
 </select>
 
 
-<insert id="buy" parameterType="Tyuumon">
+<insert id="buy" parameterType="Tyuumon" >
    insert into 
       tyuumon
    values(
@@ -31,14 +31,13 @@
 </insert>
 
 
-<update id="downStock" parameterType="Syoubinn">
+<update id="downStock" parameterType="map">
    update
       syoubinn
    set
       stock = stock - #{stock}
    where
-      syoubinn_id = #{syoubinn_id} and
-      stock >= #{stock}
+      syoubinn_id = #{syoubinn_id}
 </update>
 
 
@@ -49,13 +48,110 @@
       tyuumon
    where
       consumer_id = #{id}
+    order by tyuumon_id asc
 </select>
 
-<insert id="getBridge" parameterType="Bridge">
-   insert into  bridge
+
+<select id="selectTyu" parameterType="String" resultType="Tyuumon">
+   select
+      *
+   from 
+      tyuumon
+   where
+      consumer_id = #{consumer_id}
+</select>
+
+
+<insert id="getBridge" parameterType="int">
+   insert into
+      bridge
    values(
-      #{tyuumon_id},
-     #{syoubinn_id}
-     )
+      TYUUMON_SEQ.currval,
+      #{syoubinn_id}
+   )
 </insert>
+
+
+<update id="buyCancel" parameterType="Tyuumon">
+  update
+      tyuumon
+   set
+      stock = stock -#{stock}
+   where
+      tyuumon_id = #{tyuumon_id}
+</update>
+
+   
+<select id="selectSyo" parameterType="Bridge" resultType="Syoubinn">
+   select
+      syo.*
+   from
+      syoubinn syo
+   where
+     syoubinn_id = #{syoubinn_id}
+</select>
+
+<update id="upStock" parameterType="int">
+   update
+      syoubinn
+   set
+      stock = stock + #{stock}
+   where
+      syoubinn_id = #{syoubinn_id}
+</update>
+
+<select id="checkStock" parameterType="map" resultType="int">
+	select stock
+	from syoubinn
+	where syoubinn_id = #{syoubinn_id}
+</select>
+
+<select id="getBridge2" parameterType="int" resultType="Bridge">
+	select *
+	from bridge
+	where tyuumon_id = #{value}
+</select>
+
+<update id="updateUserPw" parameterType="map">
+   update 
+      consumer
+   set 
+      pw = #{pw}
+   where 
+      consumer_id = #{id}
+</update>
+
+<update id="updateUserName" parameterType="map">
+   update 
+      consumer
+   set 
+      name = #{name}
+   where 
+      consumer_id = #{id}
+</update>
+
+<update id="updateUserAddress" parameterType="map">
+   update 
+      consumer
+   set 
+      address = #{address}
+   where 
+      consumer_id = #{id}
+</update>
+
+<update id="updateUserPhone" parameterType="map">
+   update 
+      consumer
+   set 
+      phone = #{phone}
+   where 
+      consumer_id = #{id}
+</update>
+
+<delete id="deleteUser" parameterType="String">
+   delete from
+      consumer
+   where 
+      consumer_id=#{value}
+</delete>
 </mapper>

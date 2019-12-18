@@ -240,12 +240,18 @@ public class dao {
 
 	public ArrayList<Tyuumon> selledPro(String id) {
 		// TODO Auto-generated method stub
-		SqlSession session = factory.openSession();
-		Mapper mapper = session.getMapper(Mapper.class);
-		ArrayList<Tyuumon> list=mapper.selledPro(id);
+		SqlSession session = null;
 		
-		
-		session.close();
+		ArrayList<Tyuumon> list= null;
+		try {
+			session=factory.openSession();
+			Mapper mapper = session.getMapper(Mapper.class);
+			list = mapper.selledPro(id);
+			session.close();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			System.out.println("판매된 상품이 없습니다.");
+		}
 		return list;
 	}
 

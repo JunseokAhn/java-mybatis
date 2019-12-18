@@ -92,11 +92,13 @@
 <select id="selling" resultType="Syoubinn">
 	select *
 	from Syoubinn
+	order by syoubinn_id asc
 </select>
 
 <select id="selled" resultType="Tyuumon">
 	select *
 	from Tyuumon
+	order by tyuumon_id asc
 </select>
 
 <update id="addStock" parameterType="map">
@@ -143,7 +145,7 @@
 
 <delete id="deleteProducer" parameterType="String">
 	delete from Producer
-	where producer_id=#{value}
+	where producer_id= #{value}
 </delete>
 
 <select id="sellingPro" parameterType="String" resultType="Syoubinn">
@@ -152,10 +154,16 @@
 	where producer_id = #{value}
 </select>
 
-<!-- <select id="selledPro" parameterType="int" resultType="Tyuumon">
-	  select *
-  from tyuumon right join bridge using (tyuumon_id);
-</select> -->
+<select id="selledPro" parameterType="String" resultType="Tyuumon">
+   select *
+   from tyuumon
+   where tyuumon_id 
+   			 in 
+   			 (select tyuumon_id 
+   			 from bridge join syoubinn using(syoubinn_id)
+   			 where producer_id=#{value})
+  	order by tyuumon_id asc
+</select>
 
 
 <delete id="deleteSyoubinn" parameterType="int">
