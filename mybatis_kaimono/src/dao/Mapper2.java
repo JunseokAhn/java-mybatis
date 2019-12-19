@@ -41,5 +41,9 @@ public interface Mapper2 {
 
 	void updateUserPhone(HashMap<String, String> map);
 
+	int checkStock2(HashMap<String, Integer> map);
+
+	Bridge checkCancle(int tyuumon_id);
+
 
 }

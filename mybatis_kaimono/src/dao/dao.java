@@ -118,7 +118,7 @@ public class dao {
 		SqlSession session = factory.openSession();
 		Mapper mapper = session.getMapper(Mapper.class);
 		ArrayList<Tyuumon> list = mapper.selled();
-		
+	
 		return list;
 	}
 
@@ -210,7 +210,7 @@ public class dao {
 		Mapper mapper = session.getMapper(Mapper.class);
 		HashMap<String, String> map = new HashMap<>();
 		map.put("id", id);
-		map.put("address", phone);
+		map.put("phone", phone);
 		mapper.updateProPhone(map);
 		session.commit();
 		session.close();

@@ -12,7 +12,8 @@ import dao.dao;
 import dao.dao2;
 
 public class UI {
-	Scanner sc = new Scanner(System.in);
+	Scanner sc = new Scanner(System.in); // 상위메뉴에서 메소드호출x
+	// retrun으로 돌아가기
 	Scanner st = new Scanner(System.in);
 	dao dao = new dao();
 	dao2 dao2 = new dao2();
@@ -32,12 +33,10 @@ public class UI {
 	Login L;
 
 	public UI() {
-		// TODO Auto-generated constructor stub
 		while (true) {
 			try {
 				menu();
 			} catch (Exception e) {
-				// TODO: handle exception
 				System.out.println("잘못된 입력입니다.");
 				sc.nextLine();
 			}
@@ -45,69 +44,75 @@ public class UI {
 	}
 
 	private void menu() {
-		// TODO Auto-generated method stub
+		System.out.println("\n============홈 메뉴============");
 		System.out.println("1. 로그인");
 		System.out.println("2. 회원가입");
-		System.out.println("3. 관리자 메뉴");
-		switch (sc.nextInt()) {
-		case 1:
-			login();
-			break;
-		case 2:
-			signUp();
-			break;
-		case 3:
-			adminMenu();
-			break;
-		default:
-			System.out.println("잘못된 입력입니다.");
-			break;
+//		System.out.println("9. 관리자 메뉴");
+		System.out.println("\n0. 프로그램 종료");
+		System.out.println("=============================");
+		System.out.print("메뉴입력 : ");
+		try {
+			switch (sc.nextInt()) {
+			case 1:
+				login();
+				break;
+			case 2:
+				signUp();
+				break;
+			case 9:
+				adminMenu();
+				break;
+			case 0:
+				System.out.println("프로그램이 종료됩니다.");
+				System.exit(0);
+			default:
+				System.out.println("잘못된 입력입니다.");
+				break;
+			}
+		} catch (Exception e) {
+			System.out.println("숫자만 입력해주세요");
+			sc.nextLine();
 		}
-
 	}
 
 	private void adminMenu() {
-		// TODO Auto-generated method stub
-		System.out.println("1. 전체 이용자 조회");
-		System.out.println("2. 판매중인 전체 상품 조회");
-		System.out.println("3. 판매된 전체 상품 조회");
-		System.out.println("0. 돌아가기");
-		switch (sc.nextInt()) {
-		case 1:
-			list();
-			adminMenu();
-			break;
-		case 2:
-			selling();
-			adminMenu();
-			break;
-		case 3:
-			selled();
-			adminMenu();
-			break;
-		case 0:
-			menu();
-			break;
-		default:
-			System.out.println("올바르지 않은 입력");
-
+		while (true) {
+			System.out.println("\n----------------------------");
+			System.out.println("1. 전체 이용자 조회");
+			System.out.println("2. 판매중인 전체 상품 조회");
+			System.out.println("3. 판매된 전체 상품 조회");
+			System.out.println("\n0. 상위 메뉴");
+			System.out.println("----------------------------");
+			System.out.print("메뉴 입력 : ");
+			switch (sc.nextInt()) {
+			case 1:
+				list();
+				break;
+			case 2:
+				selling();
+				break;
+			case 3:
+				selled();
+				break;
+			case 0:
+				return;
+			default:
+				System.out.println("올바르지 않은 입력");
+			}
 		}
 	}
 
 	private void list() {
-		// TODO Auto-generated method stub
 		dao.list();
 	}
 
 	private void login() {
-		// TODO Auto-generated method stub
-		System.out.print("아이디를 입력하세요 : ");
+		System.out.print("\n아이디를 입력하세요 : ");
 		id = st.nextLine();
 		System.out.print("비밀번호를 입력하세요 : ");
 		pw = st.nextLine(); // 아이디, 중복검사 > 없으면 없는 아이디입니다. 비밀번호안맞으면 비밀번호x
 
 		L = dao.login(id, pw);// type을 반환받아서 생산자인지 소비자인지 구분
-
 		type = L.getType();
 		id = L.getId();
 
@@ -115,53 +120,51 @@ public class UI {
 			System.out.println("로그인 실패");
 		else {
 			System.out.println("로그인 성공");
-
 			if (type == 1)
-				while (type == 1) {
-					consumerMenu();
-				}
+				consumerMenu();
 			if (type == 2)
-				while (type == 2) {
-					producerMenu();
-				}
+				producerMenu();
 		}
 	}
 
 	private void consumerMenu() {
-		// TODO Auto-generated method stub
-		System.out.println("===========소비자 메뉴===========");
-		System.out.println("1. 구매");
-		System.out.println("2. 구매한 목록 리스트"); // 총 소비금액
-		System.out.println("3. 구매 취소");
-		System.out.println("4. 회원정보 수정");
-		System.out.println("5. 탈퇴");
-		System.out.println("\n0. 로그 아웃");
-		System.out.println("============================");
-		switch (sc.nextInt()) {
-		case 1:
-			buy(id);
-			break;
-		case 2:
-			buyList(id);
-			break;
-		case 3:
-			buyCancel(id);
-			break;
-		case 4:
-			userUpdate(id);
-			break;
-		case 5:
-			userDelete(id);
-			break;
-
-		case 0:
-			menu();
-			break;
-
-		default:
-			System.out.println("올바르지 않은 입력");
+		while (true) {
+			System.out.println("\n===========소비자 메뉴===========");
+			System.out.println("1. 구매");
+			System.out.println("2. 구매한 목록 리스트"); // 총 소비금액
+			System.out.println("3. 구매 취소");
+			System.out.println("4. 회원정보 수정");
+			System.out.println("5. 회원 탈퇴");
+			System.out.println("\n0. 로그 아웃");
+			System.out.println("==============================");
+			System.out.print("메뉴 선택 : ");
+			try {
+				switch (sc.nextInt()) {
+				case 1:
+					buy(id);
+					break;
+				case 2:
+					buyList(id);
+					break;
+				case 3:
+					buyCancel(id);
+					break;
+				case 4:
+					userUpdate(id);
+					break;
+				case 5:
+					userDelete(id);
+					return;
+				case 0:
+					return;
+				default:
+					System.out.println("올바르지 않은 입력");
+				}
+			} catch (Exception e) {
+				System.out.println("숫자만 입력해주세요.");
+				sc.nextLine();
+			}
 		}
-
 	}
 
 	private void userDelete(String id) {
@@ -175,7 +178,7 @@ public class UI {
 			boolean res = dao2.deleteUser(L.getId());
 			if (res) {
 				System.out.println("삭제 성공");
-				menu();
+				return;
 			} else
 				System.out.println("삭제 실패");
 		} catch (Exception e) {
@@ -187,15 +190,8 @@ public class UI {
 	private void userUpdate(String id) {
 		while (true) {
 			try {
-				System.out.print("\n비밀번호를 입력하세요 : ");
-				pw = st.nextLine();
 
-				if (L.getPw().equals(pw) == false) {
-					System.out.println("비밀번호가 틀립니다.");
-					return;
-				}
-
-				System.out.println("----------------------------");
+				System.out.println("\n----------------------------");
 				System.out.println("1. 비밀번호 변경");
 				System.out.println("2. 이름 변경");
 				System.out.println("3. 주소 변경");
@@ -206,32 +202,58 @@ public class UI {
 				try {
 					switch (sc.nextInt()) {
 					case 1:
-						System.out.println("변경하실 비밀번호를 입력하세요");
+						System.out.print("\n비밀번호를 입력하세요 : ");
+						pw = st.nextLine();
+
+						if (L.getPw().equals(pw) == false) {
+							System.out.println("비밀번호가 틀립니다.");
+							return;
+						}
+						System.out.print("\n변경하실 비밀번호를 입력하세요 : ");
 						pw = st.nextLine();
 						dao2.updateUserPw(L.getId(), pw);
 						L.setPw(pw);
 						System.out.println("변경 완료 \n다시 로그인해주세요");
-						menu();
-						break;
+						return;
 					case 2:
-						System.out.println("변경하실 이름을 입력하세요");
+						System.out.print("\n비밀번호를 입력하세요 : ");
+						pw = st.nextLine();
+
+						if (L.getPw().equals(pw) == false) {
+							System.out.println("비밀번호가 틀립니다.");
+							return;
+						}
+						System.out.print("\n변경하실 이름을 입력하세요 : ");
 						name = st.nextLine();
 						dao2.updateUserName(L.getId(), name);
 						System.out.println("변경 완료");
 						break;
 					case 3:
-						System.out.println("변경하실 주소를 입력하세요");
+						System.out.print("\n비밀번호를 입력하세요 : ");
+						pw = st.nextLine();
+
+						if (L.getPw().equals(pw) == false) {
+							System.out.println("비밀번호가 틀립니다.");
+							return;
+						}
+						System.out.print("\n변경하실 주소를 입력하세요 : ");
 						address = st.nextLine();
 						dao2.updateUserAddress(L.getId(), address);
 						System.out.println("변경 완료");
 						break;
 					case 4:
-						System.out.println("변경하실 전화번호를 입력하세요");
+						System.out.print("\n비밀번호를 입력하세요 : ");
+						pw = st.nextLine();
+
+						if (L.getPw().equals(pw) == false) {
+							System.out.println("비밀번호가 틀립니다.");
+							return;
+						}
+						System.out.print("\n변경하실 전화번호를 입력하세요 : ");
 						phone = st.nextLine();
 						dao2.updateUserPhone(L.getId(), phone);
 						System.out.println("변경 완료");
 						break;
-
 					case 0:
 						return;
 					default:
@@ -250,20 +272,59 @@ public class UI {
 		}
 	}
 
+//	private void buyCancel(String id) {
+//
+//		buyList(id);
+//		System.out.print("\n취소 주문번호 입력 : ");
+//		int tyuumon_id = sc.nextInt();
+//	boolean res = dao2.checkCancle(tyuumon_id);
+//	if (res == false) {
+//		System.out.println("이미 판매종료된 상품입니다.");
+//		return;
+//		}
+//		System.out.println("취소 수량 입력 : ");
+//		int stock = sc.nextInt();
+//		res = dao2.checkStock2(tyuumon_id, stock);
+//		if (res == false) {
+//			System.out.println("재고가 모자랍니다.");
+//		return;
+//		}
+//		res = dao2.buyCancel(id, tyuumon_id, stock);
+//		if (res) {
+//			System.out.println("취소 성공\n");
+//			buyList(id);
+//		} else
+//			System.out.println("취소 실패");
+//
+//	}
+//	
+//	
 	private void buyCancel(String id) {
 		try {
+			System.out.println("\n----------------------------");
 			buyList(id);
+			System.out.println("----------------------------");
 			System.out.print("\n취소 주문번호 입력 : ");
-			int tyuumon_id = sc.nextInt();
-			System.out.println("취소 수량 입력 : ");
+			int no = sc.nextInt();
+			boolean res = dao2.checkCancle(no);
+			if (res == false) {
+				System.out.println("이미 판매종료된 상품입니다.");
+				return;
+			}
+			System.out.print("취소 수량 입력 : ");
 			int stock = sc.nextInt();
-
-			boolean res = dao2.buyCancel(id, tyuumon_id, stock);
+			res = dao2.checkStock2(no, stock);
+			if (res == false) {
+				System.out.println("재고가 모자랍니다.");
+				return;
+			}
+			res = dao2.buyCancel(id, no, stock);
 			if (res) {
 				System.out.println("취소 성공\n");
 				buyList(id);
-			} else
+			} else {
 				System.out.println("취소 실패");
+			}
 		} catch (Exception e) {
 			System.out.println("주문번호와 수량을 재확인해주세요.");
 			sc.nextLine();
@@ -292,18 +353,15 @@ public class UI {
 			System.out.println("구매 성공\n");
 
 			while (true) {
-				System.out.println("==============================");
+				System.out.println("----------------------------");
 				System.out.println("1. 구매내역 보기");
 				System.out.println("0. 상위 메뉴");
+				System.out.println("----------------------------");
 				System.out.print("메뉴 선택 : ");
 				try {
 					switch (sc.nextInt()) {
 					case 1:
-						ArrayList<Tyuumon> tyu = dao2.buyList(id);
-						if (tyu != null)
-							System.out.println(tyu.toString());
-						else
-							System.out.println("주문내역이 없습니다.");
+						buyList(id);
 					case 0:
 						return;
 					default:
@@ -328,62 +386,63 @@ public class UI {
 	}
 
 	private void producerMenu() {
-		// TODO Auto-generated method stub
-		System.out.println("===========생산자 메뉴===========");
-		System.out.println("1. 상품등록");
-		System.out.println("2. 판매중 목록 리스트");
-		System.out.println("3. 판매된 목록 리스트"); // 미구현, // +팔린 총 금액
-		System.out.println("4. 판매정보 수정");
-		System.out.println("5. 회원정보 수정");
-		System.out.println("9. 탈퇴");
-		System.out.println("0. 로그아웃");
-		System.out.println("============================");
-		switch (sc.nextInt()) {
-		case 1:
-			enroll();
-			break;
-		case 2: // id랑 일치하는 목록만 보기
-			sellingPro();
-			break;
-		case 3:
-			selledPro();
-			break;
-		case 4:
-			updateSyoubinn();
-			break;
-		case 5:
-			updateProducer();
-			break;
-		case 9:
-			deleteProducer();
-			break;
-		case 0:
-			menu();
-			break;
-		default:
-			System.out.println("올바르지 않은 입력");
+		while (true) {
+			System.out.println("\n===========생산자 메뉴==========");
+			System.out.println("1. 상품등록");
+			System.out.println("2. 판매중 목록 리스트");
+			System.out.println("3. 판매된 목록 리스트"); // 미구현, // +팔린 총 금액
+			System.out.println("4. 판매정보 수정");
+			System.out.println("5. 회원정보 수정");
+			System.out.println("9. 탈퇴");
+			System.out.println("\n0. 로그아웃");
+			System.out.println("============================");
+			System.out.print("메뉴 입력 : ");
+			switch (sc.nextInt()) {
+			case 1:
+				enroll();
+				break;
+			case 2: // id랑 일치하는 목록만 보기
+				sellingPro();
+				break;
+			case 3:
+				selledPro();
+				break;
+			case 4:
+				updateSyoubinn();
+				break;
+			case 5:
+				updateProducer();
+				break;
+			case 9:
+				deleteProducer();
+				return;
+			case 0:
+				return;
+			default:
+				System.out.println("올바르지 않은 입력");
 
+			}
 		}
 	}
 
 	private void selledPro() {
-		// TODO Auto-generated method stub
 		ArrayList<Tyuumon> list = dao.selledPro(L.getId());
 		if (list == null)
 			return;
-		for (Tyuumon i : list)
+		for (Tyuumon i : list) {
+			if (i.getProducer_id() == null)
+				i.setProducer_id("삭제된 회원");
 			System.out.println(i);
+		}
 	}
 
 	private void sellingPro() {
-		// TODO Auto-generated method stub
 		ArrayList<Syoubinn> list = dao.sellingPro(L.getId());
 		for (Syoubinn i : list)
 			System.out.println(i);
 	}
 
 	private void deleteProducer() {
-		// TODO Auto-generated method stub
 		System.out.print("비밀번호를 입력하세요 : ");
 		pw = st.nextLine();
 		if (L.getPw().equals(pw) == false) {
@@ -393,13 +452,13 @@ public class UI {
 		boolean res = dao.deleteProducer(L.getId());
 		if (res) {
 			System.out.println("삭제 성공");
-			menu();
+			return;
+
 		} else
 			System.out.println("삭제 실패");
 	}
 
 	private void updateProducer() {
-		// TODO Auto-generated method stub
 		while (true) {
 			System.out.print("비밀번호를 입력하세요 : ");
 			pw = st.nextLine();
@@ -410,7 +469,7 @@ public class UI {
 				}
 			} else
 				return;
-			System.out.println("----------------------------");
+			System.out.println("\n----------------------------");
 			System.out.println("1. 비밀번호 변경");
 			System.out.println("2. 이름 변경");
 			System.out.println("3. 주소 변경");
@@ -450,7 +509,6 @@ public class UI {
 	}
 
 	private void updateSyoubinn() {
-		// TODO Auto-generated method stub
 		System.out.print("비밀번호를 입력하세요 : ");
 		pw = st.nextLine();
 		if (L.getPw().equals(pw) == false) {
@@ -470,7 +528,7 @@ public class UI {
 		}
 		if (res == 2) {
 
-			System.out.println("----------------------------");
+			System.out.println("\n----------------------------");
 			System.out.println("1. 가격 변경");
 			System.out.println("2. 재고 추가");
 			System.out.println("3. 판매 종료");
@@ -500,24 +558,23 @@ public class UI {
 	}
 
 	private void selled() {
-		// TODO Auto-generated method stub
 		ArrayList<Tyuumon> list = dao.selled();
-		for (Tyuumon i : list)
+		for (Tyuumon i : list) {
+			if (i.getProducer_id() == null)
+				i.setProducer_id("삭제된 회원");
 			System.out.println(i);
+		}
 	}
 
 	private void selling() {
-		// TODO Auto-generated method stub
 		ArrayList<Syoubinn> list = dao.selling();
 		for (Syoubinn i : list)
 			System.out.println(i);
 	}
 
 	private void enroll() {
-		// TODO Auto-generated method stub
 		System.out.print("이름을 입력하세요 : ");
 		name = st.nextLine();
-
 		System.out.print("종류룰 입력하세요 : ");
 		syuurui = st.nextLine();
 		System.out.print("가격을 입력하세요 : ");
@@ -534,20 +591,22 @@ public class UI {
 	}
 
 	private void signUp() {
-		// TODO Auto-generated method stub
+		System.out.println("\n----------------------------");
 		System.out.println("1. 소비자 회원가입");
 		System.out.println("2. 생산자 회원가입");
+		System.out.println("----------------------------");
+		System.out.print("메뉴 입력 : ");
 		type = sc.nextInt();
 		if (type != 1 && type != 2) {
 			System.out.println("올바르지 않은 입력");
-			signUp();
+			return;
 		}
-		System.out.print("#필수# 아이디를 입력하세요 : "); // 필수값이 입력되지않으면 catch재입력
+		System.out.print("\n#필수# 아이디를 입력하세요 : "); // 필수값이 입력되지않으면 catch재입력
 		id = st.nextLine();
 		String str = dao.checkID(id, type);// id 중복검사
 		if (str != null) {
 			System.out.println("이미 존재하는 아이디입니다.");
-			signUp();
+			return;
 		}
 		System.out.print("#필수# 비밀번호를 입력하세요 : ");
 		pw = st.nextLine();
@@ -576,7 +635,6 @@ public class UI {
 					System.out.println("등록 실패");
 			}
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			System.out.println("필수 값을 입력해주세요");
 			signUp();
 		}
