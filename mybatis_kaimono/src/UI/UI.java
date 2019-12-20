@@ -151,7 +151,7 @@ public class UI {
 					break;
 				case 4:
 					userUpdate(id);
-					break;
+					return;
 				case 5:
 					userDelete(id);
 					return;
@@ -196,7 +196,7 @@ public class UI {
 				System.out.println("2. 이름 변경");
 				System.out.println("3. 주소 변경");
 				System.out.println("4. 전화번호 변경");
-				System.out.println("\n0. 상위 메뉴");
+				System.out.println("\n0. 로그 아웃");
 				System.out.println("----------------------------");
 				System.out.print("메뉴 입력 : ");
 				try {
@@ -308,7 +308,7 @@ public class UI {
 			int no = sc.nextInt();
 			boolean res = dao2.checkCancle(no);
 			if (res == false) {
-				System.out.println("이미 판매종료된 상품입니다.");
+				System.out.println("판매종료되거나 존재하지않는 상품입니다.");
 				return;
 			}
 			System.out.print("취소 수량 입력 : ");
@@ -460,15 +460,7 @@ public class UI {
 
 	private void updateProducer() {
 		while (true) {
-			System.out.print("비밀번호를 입력하세요 : ");
-			pw = st.nextLine();
-			if (L.getId().equals(id)) {
-				if (L.getPw().equals(pw) == false) {
-					System.out.println("비밀번호가 틀립니다.");
-					return;
-				}
-			} else
-				return;
+
 			System.out.println("\n----------------------------");
 			System.out.println("1. 비밀번호 변경");
 			System.out.println("2. 이름 변경");
@@ -479,22 +471,50 @@ public class UI {
 
 			switch (sc.nextInt()) {
 			case 1:
-				System.out.println("변경하실 비밀번호를 입력하세요");
+				System.out.print("\n비밀번호를 입력하세요 : ");
+				pw = st.nextLine();
+
+				if (L.getPw().equals(pw) == false) {
+					System.out.println("비밀번호가 틀립니다.");
+					return;
+				}
+				System.out.print("변경하실 비밀번호를 입력하세요 : ");
 				pw = st.nextLine();
 				dao.updateProPw(L.getId(), pw);
 				L.setPw(pw);
 				break;
 			case 2:
+				System.out.print("\n비밀번호를 입력하세요 : ");
+				pw = st.nextLine();
+
+				if (L.getPw().equals(pw) == false) {
+					System.out.println("비밀번호가 틀립니다.");
+					return;
+				}
 				System.out.println("변경하실 이름을 입력하세요");
 				name = st.nextLine();
 				dao.updateProName(L.getId(), name);
 				break;
 			case 3:
+				System.out.print("\n비밀번호를 입력하세요 : ");
+				pw = st.nextLine();
+
+				if (L.getPw().equals(pw) == false) {
+					System.out.println("비밀번호가 틀립니다.");
+					return;
+				}
 				System.out.println("변경하실 주소를 입력하세요");
 				address = st.nextLine();
 				dao.updateProAddress(L.getId(), address);
 				break;
 			case 4:
+				System.out.print("\n비밀번호를 입력하세요 : ");
+				pw = st.nextLine();
+
+				if (L.getPw().equals(pw) == false) {
+					System.out.println("비밀번호가 틀립니다.");
+					return;
+				}
 				System.out.println("변경하실 전화번호를 입력하세요");
 				phone = st.nextLine();
 				dao.updateProPhone(L.getId(), phone);
