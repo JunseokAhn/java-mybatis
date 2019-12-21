@@ -4,10 +4,20 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   <mapper namespace="Dao.Mapper">
   
+  <select id="checkPro" parameterType="String" resultType="Producer">
+  select * from Producer
+  </select>
   
+  <select id="checkCon" parameterType="String" resultType="Consumer">
+  select * from Consumer
+  </select>
   
-  
-  
+  <insert id="signUp_producer" parameterType="map">
+  insert into Producer
+  ()
+  values
+  ()
+  </insert>
   
   
   
