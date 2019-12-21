@@ -54,4 +54,31 @@
 	<select id="eigaList"  resultType="Movie">
 		select * from movie 
 	</select>
+	
+	<select id="selectEiga" parameterType="int" resultType="Movie">
+		select * from movie where movie_num = #{value}
+	</select>
+	
+	<update id="updateCon" parameterType="Consumer">
+		update  Consumer
+		set 
+			Consumer_id=#{Consumer_id},
+			Consumer_name=#{Consumer_name},
+			Property = #{Property}
+		where
+			Consumer_id=#{Consumer_id}
+	</update>
+	
+	<update id="updateMovie" parameterType="Movie">
+		update Movie
+		set
+			Movie_name=#{Movie_name},
+			seki = #{seki},
+			price = #{price},
+			Producer_id = #{Producer_id},
+			Producer_name = #{Producer_name}
+		where
+			Movie_num = #{Movie_num}
+	</update>
+	
 </mapper>

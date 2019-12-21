@@ -17,6 +17,7 @@ public class Dao {
 	private Producer P;
 	private int num=0;
 	private Login L;
+	private Movie M;
 	
 
 	public int checkId(String id, String name) {
@@ -121,6 +122,28 @@ public class Dao {
 		ArrayList<Movie> M = mapper.eigaList();
 		openSession.close();
 		return M;
+	}
+
+
+	public int koubai(String id, int property, int movie_num, int seki) {
+		// TODO Auto-generated method stub
+		SqlSession openSession = factory.openSession();
+		Mapper mapper = openSession.getMapper(Mapper.class);
+		M = mapper.selectEiga(movie_num);
+		if(M==null)
+			return 0;
+		if(M.getSeki()<seki)
+			return 1;
+		if(M.getPrice()*seki>property)
+			return 2;
+		L.setProperty(L.getProperty()-M.getPrice()*seki);
+		C = new Consumer(L.getId(), L.getName(), L.getProperty());
+		mapper.updateCon(C);
+		M.setSeki(M.getSeki()-seki);
+		mapper.updateMovie(M);
+		openSession.commit();
+		openSession.close();
+		return 3;
 	}
 	
 	

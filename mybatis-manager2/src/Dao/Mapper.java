@@ -28,6 +28,12 @@ public interface Mapper {
 
 	ArrayList<Movie> eigaList();
 
+	Movie selectEiga(int movie_num);
+
+	void updateCon(Consumer c);
+
+	void updateMovie(Movie m);
+
 	
 
 }

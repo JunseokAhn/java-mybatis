@@ -174,6 +174,29 @@ public class UI {
 			System.out.println(i);
 		System.out.print("구매할 영화 번호 : ");
 		Movie_num=sc.nextInt();
+		System.out.print("구매할 좌석 수 : ");
+		seki = sc.nextInt();
+		if(seki==0) {
+			System.out.println("1자리 이상 구매해주세요.");
+			return;
+		}
+		int res = dao.koubai(L.getId(),L.getProperty(),Movie_num, seki);
+		if(res==0) {
+			System.out.println("번호를 다시 입력해주세요");
+			return;
+		}
+		if(res==1) {
+			System.out.println("좌석이 부족합니다.");
+			return;
+		}
+		if(res==2) {
+			System.out.println("금액이 부족합니다.");
+			return;
+		}
+		if(res==3) {
+			System.out.println("구매 완료");
+			
+		}
 	}
 
 	private void ProducerMenu() {
@@ -184,6 +207,7 @@ public class UI {
 			System.out.println("2. 내가 촬영한 영화"); // 총 수입
 			System.out.println("3. 리플달기"); // 대댓글로
 			System.out.println("4. 영화 내리기");
+			System.out.println("5. 영화감독 바꾸기");
 			System.out.println("9. 은퇴하기");
 			System.out.println("0. 로그아웃");
 			System.out.println("----------------------------------------------------");
@@ -219,7 +243,7 @@ public class UI {
 		System.out.print("이름 : ");
 		Movie_name = st.nextLine();
 		System.out.print("좌석 :               ##미입력시 5석 생성");
-		seki = sc.next();
+		seki = sc.nextInt();
 		System.out.print("가격 : ");
 		price = sc.nextInt();
 		M = new Movie(Movie_name, seki, price, L.getId(), L.getName());
