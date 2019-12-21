@@ -2,7 +2,7 @@ package VO;
 
 public class Login {
 	private String id;
-	private String Consumer_name;
+	private String name;
 	private int Property;
 	private int type;
 	
@@ -10,17 +10,17 @@ public class Login {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public Login(String id, String consumer_name, int property, int type) {
+	public Login(String id, String name, int property, int type) {
 		super();
 		this.id = id;
-		Consumer_name = consumer_name;
+		this.name = name;
 		Property = property;
 		this.type = type;
 	}
 
 	@Override
 	public String toString() {
-		return "Login [id=" + id + ", Consumer_name=" + Consumer_name + ", Property=" + Property + ", type=" + type
+		return "Login [id=" + id + ", name=" + name + ", Property=" + Property + ", type=" + type
 				+ "]";
 	}
 
@@ -32,12 +32,12 @@ public class Login {
 		this.id = id;
 	}
 
-	public String getConsumer_name() {
-		return Consumer_name;
+	public String getName() {
+		return name;
 	}
 
-	public void setConsumer_name(String consumer_name) {
-		Consumer_name = consumer_name;
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public int getProperty() {

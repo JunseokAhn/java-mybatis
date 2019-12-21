@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import VO.Consumer;
+import VO.Movie;
 import VO.Producer;
 
 public interface Mapper {
@@ -20,6 +21,12 @@ public interface Mapper {
 	ArrayList<Producer> listPro();
 
 	ArrayList<Consumer> listCon();
+
+	void satuee(Movie m);
+
+	ArrayList<Movie> eigaListPro(String id);
+
+	ArrayList<Movie> eigaList();
 
 	
 

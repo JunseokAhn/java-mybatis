@@ -33,4 +33,25 @@
 	<select id="listCon" resultType="Consumer">
 		select * from Consumer
 	</select>
+	
+	<insert id="satuee" parameterType="Movie">
+		insert into Movie
+		(MOVIE_NAME, SEKI, PRICE, PRODUCER_ID, PRODUCER_NAME)
+		Values
+		(#{Movie_name}
+		<if test="seki!=null">
+			, #{seki}
+		</if>
+		<if test="seki==null">
+			, Default
+		</if>, #{price}, #{Producer_id}, #{Producer_name})
+	</insert>
+	
+	<select id="eigaListPro" parameterType="String" resultType="Movie">
+		select * from movie where producer_id = #{value}
+	</select>
+	
+	<select id="eigaList"  resultType="Movie">
+		select * from movie 
+	</select>
 </mapper>

@@ -8,6 +8,7 @@ import org.apache.ibatis.session.SqlSessionFactory;
 
 import VO.Consumer;
 import VO.Login;
+import VO.Movie;
 import VO.Producer;
 
 public class Dao {
@@ -93,12 +94,35 @@ public class Dao {
 		return L;
 	}
 
-
-	public void satuee(String movie_name, int seki, int price) {
+	public void satuee(Movie m) {
 		// TODO Auto-generated method stub
-		
-		
+		SqlSession openSession = factory.openSession();
+		Mapper mapper = openSession.getMapper(Mapper.class);
+		System.out.println(m.getSeki());
+		mapper.satuee(m);
+		openSession.commit();
+		openSession.close();
 	}
+
+
+	public ArrayList<Movie> eigaListPro(String id) {
+		// TODO Auto-generated method stub
+		SqlSession openSession = factory.openSession();
+		Mapper mapper = openSession.getMapper(Mapper.class);
+		ArrayList<Movie> M = mapper.eigaListPro(id);
+		openSession.close();
+		return M;
+	}
+
+	public ArrayList<Movie> eigaList() {
+		// TODO Auto-generated method stub
+		SqlSession openSession = factory.openSession();
+		Mapper mapper = openSession.getMapper(Mapper.class);
+		ArrayList<Movie> M = mapper.eigaList();
+		openSession.close();
+		return M;
+	}
+	
 	
 	
 	
