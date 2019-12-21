@@ -47,6 +47,8 @@ public class Dao {
 		map.put("id", id);
 		map.put("name", name);
 		mapper.signUp_producer(map);
+		openSession.commit();
+		openSession.close();
 	}
 
 
@@ -58,6 +60,8 @@ public class Dao {
 		map.put("id", id);
 		map.put("name", name);
 		mapper.signUp_consumer(map);
+		openSession.commit();
+		openSession.close();
 	}
 
 
@@ -92,6 +96,7 @@ public class Dao {
 
 	public void satuee(String movie_name, int seki, int price) {
 		// TODO Auto-generated method stub
+		
 		
 	}
 	

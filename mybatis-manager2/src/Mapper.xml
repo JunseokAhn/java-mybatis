@@ -2,26 +2,35 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-  <mapper namespace="Dao.Mapper">
-  
-  <select id="checkPro" parameterType="String" resultType="Producer">
-  select * from Producer
-  </select>
-  
-  <select id="checkCon" parameterType="String" resultType="Consumer">
-  select * from Consumer
-  </select>
-  
-  <insert id="signUp_producer" parameterType="map">
-  insert into Producer
-  ()
-  values
-  ()
-  </insert>
-  
-  
-  
-  
-  
-  
-  </mapper>
+<mapper namespace="Dao.Mapper">
+
+	<select id="checkPro" parameterType="String" resultType="Producer">
+		select * from Producer where producer_id = #{value}
+	</select>
+
+	<select id="checkCon" parameterType="String" resultType="Consumer">
+		select * from Consumer where consumer_id = #{value}
+	</select>
+
+	<insert id="signUp_producer" parameterType="map">
+		insert into Producer
+		(PRODUCER_ID, PRODUCER_NAME, PROPERTY)
+		values
+		(#{id} ,#{name} ,Default )
+	</insert>
+
+	<insert id="signUp_consumer" parameterType="map">
+		insert into Consumer
+		(CONSUMER_ID, CONSUMER_NAME, PROPERTY)
+		values
+		(#{id} ,#{name} ,Default )
+	</insert>
+
+	<select id="listPro" resultType="Producer">
+		select * from Producer
+	</select>
+
+	<select id="listCon" resultType="Consumer">
+		select * from Consumer
+	</select>
+</mapper>
