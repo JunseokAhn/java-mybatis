@@ -153,18 +153,27 @@ public class UI {
 				koubai();
 				break;
 			case 2:
-
+				eigaListCon();
 				break;
 			case 0:
 				condition = false;
+				break;
 			default:
 				System.out.println("올바른 숫자를 입력하세요");
 			}
 		} catch (Exception e) {
 			// TODO: handle exception
 			System.out.println("숫자만 입력하세요");
+			e.printStackTrace();
 		}
 
+	}
+
+	private void eigaListCon() {
+		// TODO Auto-generated method stub
+		ArrayList<Movie> list = dao.eigaListCon(L.getId());
+		for(Movie i : list)
+			System.out.println(i);
 	}
 
 	private void koubai() {
@@ -180,7 +189,7 @@ public class UI {
 			System.out.println("1자리 이상 구매해주세요.");
 			return;
 		}
-		int res = dao.koubai(L.getId(),L.getProperty(),Movie_num, seki);
+		int res = dao.koubai(Movie_num, seki);
 		if(res==0) {
 			System.out.println("번호를 다시 입력해주세요");
 			return;
@@ -220,12 +229,14 @@ public class UI {
 				break;
 			case 0:
 				condition = false;
+				break;
 			default:
 				System.out.println("올바른 숫자를 입력하세요");
 			}
 		} catch (Exception e) {
 			// TODO: handle exception
 			System.out.println("숫자만 입력하세요");
+			e.printStackTrace();
 		}
 
 	}
@@ -246,8 +257,8 @@ public class UI {
 		seki = sc.nextInt();
 		System.out.print("가격 : ");
 		price = sc.nextInt();
-		M = new Movie(Movie_name, seki, price, L.getId(), L.getName());
+		M = new Movie(Movie_name, seki, price, L.getId());
 		dao.satuee(M);
-
+		
 	}
 }

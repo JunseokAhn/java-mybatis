@@ -36,7 +36,7 @@
 	
 	<insert id="satuee" parameterType="Movie">
 		insert into Movie
-		(MOVIE_NAME, SEKI, PRICE, PRODUCER_ID, PRODUCER_NAME)
+		(MOVIE_NAME, SEKI, PRICE, PRODUCER_ID)
 		Values
 		(#{Movie_name}
 		<if test="seki!=null">
@@ -44,11 +44,21 @@
 		</if>
 		<if test="seki==null">
 			, Default
-		</if>, #{price}, #{Producer_id}, #{Producer_name})
+		</if>, #{price}, #{Producer_id})
 	</insert>
 	
 	<select id="eigaListPro" parameterType="String" resultType="Movie">
 		select * from movie where producer_id = #{value}
+	</select>
+	
+	<select id="eigaListCon" parameterType="String" resultType="Movie">
+		select * 
+		from movie
+		where movie_num in (
+		select movie_num
+		from consumer join bridge using(consumer_id)
+		where consumer_id=#{value}
+		)
 	</select>
 	
 	<select id="eigaList"  resultType="Movie">
@@ -75,10 +85,15 @@
 			Movie_name=#{Movie_name},
 			seki = #{seki},
 			price = #{price},
-			Producer_id = #{Producer_id},
-			Producer_name = #{Producer_name}
+			Producer_id = #{Producer_id}
 		where
 			Movie_num = #{Movie_num}
 	</update>
 	
+	<insert id="insertBridge" parameterType="map">
+		insert into Bridge
+		(MOVIE_NUM, CONSUMER_ID)
+		values
+		(#{Movie_num}, #{Consumer_id})
+	</insert>
 </mapper>

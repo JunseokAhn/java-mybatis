@@ -99,7 +99,7 @@ public class Dao {
 		// TODO Auto-generated method stub
 		SqlSession openSession = factory.openSession();
 		Mapper mapper = openSession.getMapper(Mapper.class);
-		System.out.println(m.getSeki());
+		
 		mapper.satuee(m);
 		openSession.commit();
 		openSession.close();
@@ -125,22 +125,32 @@ public class Dao {
 	}
 
 
-	public int koubai(String id, int property, int movie_num, int seki) {
+	public int koubai(int movie_num, int seki) {
 		// TODO Auto-generated method stub
 		SqlSession openSession = factory.openSession();
 		Mapper mapper = openSession.getMapper(Mapper.class);
 		M = mapper.selectEiga(movie_num);
+		System.out.println(M);
 		if(M==null)
 			return 0;
 		if(M.getSeki()<seki)
 			return 1;
-		if(M.getPrice()*seki>property)
+		if(M.getPrice()*seki>L.getProperty())
 			return 2;
+	
 		L.setProperty(L.getProperty()-M.getPrice()*seki);
 		C = new Consumer(L.getId(), L.getName(), L.getProperty());
+		System.out.println(C);
 		mapper.updateCon(C);
+		System.out.println(1);
 		M.setSeki(M.getSeki()-seki);
+		System.out.println(M);
 		mapper.updateMovie(M);
+		System.out.println(2);
+		HashMap <String, Object> map = new HashMap<>();
+		map.put("Movie_num", movie_num);
+		map.put("Consumer_id", L.getId());
+		mapper.insertBridge(map);
 		openSession.commit();
 		openSession.close();
 		return 3;
@@ -151,7 +161,7 @@ public class Dao {
 		// TODO Auto-generated method stub
 		SqlSession openSession = factory.openSession();
 		Mapper mapper = openSession.getMapper(Mapper.class);
-		ArrayList<Movie> M = mapper.eigaListPro(id);
+		ArrayList<Movie> M = mapper.eigaListCon(id);
 		openSession.close();
 		return M;
 	}

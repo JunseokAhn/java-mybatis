@@ -26,6 +26,8 @@ public interface Mapper {
 
 	ArrayList<Movie> eigaListPro(String id);
 
+	ArrayList<Movie> eigaListCon(String id);
+	
 	ArrayList<Movie> eigaList();
 
 	Movie selectEiga(int movie_num);
@@ -33,6 +35,9 @@ public interface Mapper {
 	void updateCon(Consumer c);
 
 	void updateMovie(Movie m);
+
+	void insertBridge(HashMap<String, Object> map);
+
 
 	
 
