@@ -145,6 +145,16 @@ public class Dao {
 		openSession.close();
 		return 3;
 	}
+
+
+	public ArrayList<Movie> eigaListCon(String id) {
+		// TODO Auto-generated method stub
+		SqlSession openSession = factory.openSession();
+		Mapper mapper = openSession.getMapper(Mapper.class);
+		ArrayList<Movie> M = mapper.eigaListPro(id);
+		openSession.close();
+		return M;
+	}
 	
 	
 	
