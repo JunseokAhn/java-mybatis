@@ -10,6 +10,7 @@ import VO.Consumer;
 import VO.Login;
 import VO.Movie;
 import VO.Producer;
+import VO.Reply;
 
 public class Dao {
 	SqlSessionFactory factory = MybatisConfig.getSqlSessionFactory();
@@ -130,7 +131,7 @@ public class Dao {
 		SqlSession openSession = factory.openSession();
 		Mapper mapper = openSession.getMapper(Mapper.class);
 		M = mapper.selectEiga(movie_num);
-		System.out.println(M);
+
 		if(M==null)
 			return 0;
 		if(M.getSeki()<seki)
@@ -140,13 +141,13 @@ public class Dao {
 	
 		L.setProperty(L.getProperty()-M.getPrice()*seki);
 		C = new Consumer(L.getId(), L.getName(), L.getProperty());
-		System.out.println(C);
+	
 		mapper.updateCon(C);
-		System.out.println(1);
+		
 		M.setSeki(M.getSeki()-seki);
-		System.out.println(M);
+		
 		mapper.updateMovie(M);
-		System.out.println(2);
+		
 		HashMap <String, Object> map = new HashMap<>();
 		map.put("Movie_num", movie_num);
 		map.put("Consumer_id", L.getId());
@@ -165,7 +166,50 @@ public class Dao {
 		openSession.close();
 		return M;
 	}
+
+	public void reply(Reply r) {
+		// TODO Auto-generated method stub
+		SqlSession openSession = factory.openSession();
+		Mapper mapper = openSession.getMapper(Mapper.class);
+		System.out.println(r);
+		mapper.reply(r);
+		openSession.commit();
+		openSession.close();
+	}
+
+
+	public Movie selectEiga(int movie_num) {
+		// TODO Auto-generated method stub
+		SqlSession openSession = factory.openSession();
+		Mapper mapper = openSession.getMapper(Mapper.class);
+		M = mapper.selectEiga(movie_num);
+		openSession.close();
+		
+		return M;
+	}
+
+
+	public ArrayList<Reply> replyList() {
+		// TODO Auto-generated method stub
+		SqlSession openSession = factory.openSession();
+		Mapper mapper = openSession.getMapper(Mapper.class);
+		ArrayList<Reply> R = mapper.selectReply(L.getId());
+		openSession.close();
+		return R;
+	}
+
+
+	public void rereply(Reply r) {
+		// TODO Auto-generated method stub
+		SqlSession openSession = factory.openSession();
+		Mapper mapper = openSession.getMapper(Mapper.class);
 	
+		mapper.rereply(r);
+		openSession.commit();
+		openSession.close();
+	}
+
+
 	
 	
 	

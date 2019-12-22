@@ -6,6 +6,7 @@ import java.util.Scanner;
 import Dao.Dao;
 import VO.Login;
 import VO.Movie;
+import VO.Reply;
 
 public class UI {
 
@@ -23,6 +24,8 @@ public class UI {
 	private String Producer_id;
 	private String Producer_name;
 	private boolean condition;
+	private String contents;
+	private int Reply_num;
 
 	public UI() {
 		// TODO Auto-generated constructor stub
@@ -155,6 +158,8 @@ public class UI {
 			case 2:
 				eigaListCon();
 				break;
+			case 3:
+				reply();
 			case 0:
 				condition = false;
 				break;
@@ -169,42 +174,60 @@ public class UI {
 
 	}
 
+	private void reply() {
+		// TODO Auto-generated method stub
+		ArrayList<Movie> list = dao.eigaList();
+		for (Movie i : list)
+			System.out.println(i);
+		System.out.print("댓글 달 영화 번호 : ");
+		Movie_num = sc.nextInt();
+		M = dao.selectEiga(Movie_num);
+		if (M == null) {
+			System.out.println("존재하지 않는 영화");
+			return;
+		}
+		System.out.print("내용 입력 : ");
+		contents = st.nextLine();
+		Reply R = new Reply(contents, Movie_num, L.getId());
+		dao.reply(R);
+	}
+
 	private void eigaListCon() {
 		// TODO Auto-generated method stub
 		ArrayList<Movie> list = dao.eigaListCon(L.getId());
-		for(Movie i : list)
+		for (Movie i : list)
 			System.out.println(i);
 	}
 
 	private void koubai() {
 		// TODO Auto-generated method stub
 		ArrayList<Movie> list = dao.eigaList();
-		for(Movie i : list)
+		for (Movie i : list)
 			System.out.println(i);
 		System.out.print("구매할 영화 번호 : ");
-		Movie_num=sc.nextInt();
+		Movie_num = sc.nextInt();
 		System.out.print("구매할 좌석 수 : ");
 		seki = sc.nextInt();
-		if(seki==0) {
+		if (seki == 0) {
 			System.out.println("1자리 이상 구매해주세요.");
 			return;
 		}
 		int res = dao.koubai(Movie_num, seki);
-		if(res==0) {
+		if (res == 0) {
 			System.out.println("번호를 다시 입력해주세요");
 			return;
 		}
-		if(res==1) {
+		if (res == 1) {
 			System.out.println("좌석이 부족합니다.");
 			return;
 		}
-		if(res==2) {
+		if (res == 2) {
 			System.out.println("금액이 부족합니다.");
 			return;
 		}
-		if(res==3) {
+		if (res == 3) {
 			System.out.println("구매 완료");
-			
+
 		}
 	}
 
@@ -227,6 +250,8 @@ public class UI {
 			case 2:
 				eigaListPro();
 				break;
+			case 3:
+				rereply();
 			case 0:
 				condition = false;
 				break;
@@ -239,6 +264,30 @@ public class UI {
 			e.printStackTrace();
 		}
 
+	}
+
+	private void rereply() {
+		// TODO Auto-generated method stub
+		ArrayList<Reply> list = dao.replyList();
+		for (Reply i : list)
+			System.out.println(i);
+		System.out.print("댓글 달 리플 번호 : ");
+		Reply_num = sc.nextInt();
+		boolean flag = true;
+		for (Reply i : list) {
+			if (i.getReply_num() == Reply_num) {
+				flag = false;
+				Movie_num = i.getMovie_num();
+			}
+			if (flag) {
+				System.out.println("존재하지 않는 리플");
+				return;
+			}
+		}
+		System.out.print("내용 입력 : ");
+		contents = st.nextLine();
+		Reply R = new Reply(contents, Movie_num, L.getId(), Reply_num);
+		dao.rereply(R);
 	}
 
 	private void eigaListPro() {
@@ -259,6 +308,6 @@ public class UI {
 		price = sc.nextInt();
 		M = new Movie(Movie_name, seki, price, L.getId());
 		dao.satuee(M);
-		
+
 	}
 }

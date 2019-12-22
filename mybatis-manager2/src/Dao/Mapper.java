@@ -6,6 +6,7 @@ import java.util.HashMap;
 import VO.Consumer;
 import VO.Movie;
 import VO.Producer;
+import VO.Reply;
 
 public interface Mapper {
 	Producer checkPro(String id);
@@ -38,7 +39,11 @@ public interface Mapper {
 
 	void insertBridge(HashMap<String, Object> map);
 
+	void reply(Reply r);
 
+	ArrayList<Reply> selectReply(String string);
+
+	void rereply(Reply r);
 	
 
 }

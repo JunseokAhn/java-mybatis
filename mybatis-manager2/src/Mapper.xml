@@ -96,4 +96,23 @@
 		values
 		(#{Movie_num}, #{Consumer_id})
 	</insert>
+	
+	<insert id="reply" parameterType="Reply">
+		insert into reply
+		(CONTENTS, MOVIE_NUM, CONSUMER_ID)
+		values
+		(#{Contents}, #{Movie_num}, #{Consumer_id})
+	</insert>
+	
+	<select id="selectReply"  parameterType="String"  resultType="Reply">
+		select * 	from reply where movie_num in 
+		(select movie_num from movie where producer_id in (#{value}))
+	</select>
+	
+	<insert id="rereply" parameterType="Reply">
+		insert into reply
+		(CONTENTS, MOVIE_NUM, CONSUMER_ID, REREPLY_NUM)
+		values
+		(#{Contents}, #{Movie_num}, #{Consumer_id}, #{Rereply_num})
+	</insert>
 </mapper>
